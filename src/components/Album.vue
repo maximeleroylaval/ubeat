@@ -1,193 +1,38 @@
 <template>
   <div id="Album" class="container">
-    <div class="box">
-      <article class="media">
-        <div class="column is-one-third jaq">
-          <img src="@/assets/album.jpg" alt="Jaquette d'album">
+    <div class="columns">
+      <div class="column is-one-third jaq">
+        <img src="@/assets/album.jpg" alt="Jaquette d'album">
+      </div>
+      <div class="column has-vertically-aligned-content">
+        <p class="title is-1">{{ album[0].title }}</p>
+        <p class="subtitle is-4">{{ album[0].artist }} - {{ album[0].kind }}</p>
+        <p class="subtitle is-6">{{ album[0].releaseYear }} - {{ album[0].songs.length }} tracks - 2 h 6 min</p>
+        <div class="extern-buy">
+          <a href="https://itunes.apple.com/fr/artist/bigflo-oli/806433543" target="_blank">
+            <img src="@/assets/itunes_logo.png">
+          </a>
         </div>
-        <div class="media-content">
-          <div class="content">
-            <p class="title is-1">La vraie vie (Deluxe)</p>
-            <p class="subtitle is-4">Biglo & Oli - RAP</p>
-            <p class="subtitle is-6">2017 - 25 titres - 2 h 6 min</p>
-
-
-            <div class="extern-buy">
-              <a href="https://itunes.apple.com/fr/artist/bigflo-oli/806433543" target="_blank">
-                <img src="@/assets/itunes_logo.png">
-              </a>
-            </div>
-          </div>
-        </div>
-      </article>
+      </div>
     </div>
     <div class="columns">
-
-
-      <!--<ul id="example-1">
-        <li v-for="item in items">
-          {{ item.message }}
-        </li>
-      </ul>-->
       <div class="column">
 
         <table id="playlist" class="table is-narrow is-hoverable is-fullwidth">
+          <thead>
+          <tr>
+            <th>#</th>
+            <th></th>
+            <th>Title</th>
+            <th>Duration</th>
+          </tr>
+          </thead>
           <tbody>
-          <tr>
-            <td>#</td>
-            <td></td>
-            <td>Titre</td>
-            <td>Temps</td>
-          </tr>
-          <tr>
-            <td>1</td>
+          <tr v-for="song in album[0].songs">
+            <td>{{ song.number }}</td>
             <td><i class="fas fa-play-circle"></i></td>
-            <td>La vraie vie</td>
-            <td>8:06</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td><i class="fas fa-play-circle"></i></td>
-            <td>Alors alors</td>
-            <td>3:55</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td><i class="fas fa-play-circle"></i></td>
-            <td>Personne</td>
-            <td>4:31</td>
-          </tr>
-          <tr>
-            <td>4</td>
-            <td><i class="fas fa-play-circle"></i></td>
-            <td>S****e</td>
-            <td>4:23</td>
-          </tr>
-          <tr>
-            <td>5</td>
-            <td><i class="fas fa-play-circle"></i></td>
-            <td>Trop tard</td>
-            <td>5:07</td>
-          </tr>
-          <tr>
-            <td>6</td>
-            <td><i class="fas fa-play-circle"></i></td>
-            <td>Papa</td>
-            <td>5:18</td>
-          </tr>
-          <tr>
-            <td>7</td>
-            <td><i class="fas fa-play-circle"></i></td>
-            <td>Répondez-moi</td>
-            <td>6:00</td>
-          </tr>
-          <tr>
-            <td>8</td>
-            <td><i class="fas fa-play-circle"></i></td>
-            <td>Olivio</td>
-            <td>5:07</td>
-          </tr>
-          <tr>
-            <td>9</td>
-            <td><i class="fas fa-play-circle"></i></td>
-            <td>La vie normale</td>
-            <td>4:49</td>
-          </tr>
-          <tr>
-            <td>10</td>
-            <td><i class="fas fa-play-circle"></i></td>
-            <td>Autre part</td>
-            <td>6:24</td>
-          </tr>
-          <tr>
-            <td>11</td>
-            <td><i class="fas fa-play-circle"></i></td>
-            <td>Dommage</td>
-            <td>3:58</td>
-          </tr>
-          <tr>
-            <td>12</td>
-            <td><i class="fas fa-play-circle"></i></td>
-            <td>Ça va trop vite</td>
-            <td>4:25</td>
-          </tr>
-          <tr>
-            <td>13</td>
-            <td><i class="fas fa-play-circle"></i></td>
-            <td>Sac à dos</td>
-            <td>5:27</td>
-          </tr>
-          <tr>
-            <td>14</td>
-            <td><i class="fas fa-play-circle"></i></td>
-            <td>Dans mon lit</td>
-            <td>7:05</td>
-          </tr>
-          <tr>
-            <td>15</td>
-            <td><i class="fas fa-play-circle"></i></td>
-            <td>Je suis</td>
-            <td>4:35</td>
-          </tr>
-          <tr>
-            <td>16</td>
-            <td><i class="fas fa-play-circle"></i></td>
-            <td>Cigarette</td>
-            <td>5:25</td>
-          </tr>
-          <tr>
-            <td>17</td>
-            <td><i class="fas fa-play-circle"></i></td>
-            <td>Dites rien à ma mère</td>
-            <td>3:58</td>
-          </tr>
-          <tr>
-            <td>18</td>
-            <td><i class="fas fa-play-circle"></i></td>
-            <td>Dommage (Acoustic)</td>
-            <td>3:32</td>
-          </tr>
-          <tr>
-            <td>19</td>
-            <td><i class="fas fa-play-circle"></i></td>
-            <td>Pour un pote (feat. Jean Dujardin) [Bande originale du film "Brice 3"]</td>
-            <td>4:52</td>
-          </tr>
-          <tr>
-            <td>20</td>
-            <td><i class="fas fa-play-circle"></i></td>
-            <td>À mon retour</td>
-            <td>5:12</td>
-          </tr>
-          <tr>
-            <td>21</td>
-            <td><i class="fas fa-play-circle"></i></td>
-            <td>Début d'empire</td>
-            <td>6:43</td>
-          </tr>
-          <tr>
-            <td>22</td>
-            <td><i class="fas fa-play-circle"></i></td>
-            <td>La tempête</td>
-            <td>5:18</td>
-          </tr>
-          <tr>
-            <td>23</td>
-            <td><i class="fas fa-play-circle"></i></td>
-            <td>Du disque dur au disque d'or</td>
-            <td>5:17</td>
-          </tr>
-          <tr>
-            <td>24</td>
-            <td><i class="fas fa-play-circle"></i></td>
-            <td>Mytho</td>
-            <td>3:37</td>
-          </tr>
-          <tr>
-            <td>25</td>
-            <td><i class="fas fa-play-circle"></i></td>
-            <td>Shape of You</td>
-            <td>3:17</td>
+            <td>{{ song.title }}</td>
+            <td>{{ song.duration }}</td>
           </tr>
           </tbody>
         </table>
@@ -197,6 +42,153 @@
     </div>
   </div>
 </template>
+
+
+<script>
+  export default {
+    data() {
+      return {
+        album: [
+          {
+            artist: 'Bigflo & Oli',
+            title: 'La vraie vie (Deluxe)',
+            releaseYear: '2017',
+            kind: 'RAP',
+            songs: [
+              {
+                number: 1,
+                title: 'La vraie vie',
+                duration: '8:06'
+              },
+              {
+                number: 2,
+                title: 'Alors alors',
+                duration: '3:55'
+              },
+              {
+                number: 3,
+                title: 'Personne',
+                duration: '4:29'
+              },
+              {
+                number: 4,
+                title: 'Salope !',
+                duration: '4:21'
+              },
+              {
+                number: 5,
+                title: 'Trop tard',
+                duration: '5:05'
+              },
+
+              {
+                number: 6,
+                title: 'Papa',
+                duration: '5:17'
+              },
+              {
+                number: 7,
+                title: 'Répondez-moi',
+                duration: '5:58'
+              },
+              {
+                number: 8,
+                title: 'Olivio',
+                duration: '5:05'
+              },
+              {
+                number: 9,
+                title: 'La vie normale',
+                duration: '4:47'
+              },
+              {
+                number: 10,
+                title: 'Autre part',
+                duration: '6:22'
+              },
+              {
+                number: 11,
+                title: 'Dommage',
+                duration: '3:56'
+              },
+              {
+                number: 12,
+                title: 'Ça va trop vite (feat. Busta Rhymes)',
+                duration: '4:23'
+              },
+              {
+                number: 13,
+                title: 'Sac à dos',
+                duration: '5:05'
+              },
+              {
+                number: 14,
+                title: 'Dans mon lit',
+                duration: '7:07'
+              },
+              {
+                number: 15,
+                title: 'Je suis',
+                duration: '4:37'
+              },
+              {
+                number: 16,
+                title: 'Cigarette',
+                duration: '5:25'
+              },
+              {
+                number: 17,
+                title: 'Dites rien à ma mère',
+                duration: '3:58'
+              },
+              {
+                number: 18,
+                title: 'Dommage (acoustique)',
+                duration: '3:32'
+              },
+              {
+                number: 19,
+                title: 'Pour un pote (feat. Jean Dujardin)',
+                duration: '4:52'
+              },
+              {
+                number: 20,
+                title: 'À mon retour',
+                duration: '5:12'
+              },
+              {
+                number: 21,
+                title: 'Début d\'Empire',
+                duration: '6:43'
+              },
+              {
+                number: 22,
+                title: 'La Tempête',
+                duration: '5:18'
+              },
+              {
+                number: 23,
+                title: 'Du disque dur au disque d\'or',
+                duration: '5:17'
+              },
+              {
+                number: 24,
+                title: 'Mytho',
+                duration: '3:37'
+              },
+              {
+                number: 25,
+                title: 'Shape of You (de Berywam)',
+                duration: '3:17'
+              }
+
+            ]
+          }
+        ]
+      };
+    }
+  };
+</script>
 
 <style>
   #Album {
