@@ -20,11 +20,6 @@
     <div class="columns">
 
 
-      <!--<ul id="example-1">
-        <li v-for="item in items">
-          {{ item.message }}
-        </li>
-      </ul>-->
       <div class="column">
 
         <table id="playlist" class="table is-narrow is-hoverable is-fullwidth">
@@ -205,4 +200,3 @@
     max-width: 16px;
   }
 </style>
-

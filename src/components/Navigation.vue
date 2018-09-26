@@ -4,9 +4,9 @@
     <div class="navbar-brand">
 
 
-      <a class="navbar-item" href="https://bulma.io">
+      <router-link class="navbar-item" to="/">
         <img src="@/assets/logo.jpg" alt="UBeat app" height="128">
-      </a>
+      </router-link>
       <div class="navbar-item is-hidden-desktop">
         <div class="field has-addons">
           <div class="control">
