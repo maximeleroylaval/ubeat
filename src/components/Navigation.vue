@@ -32,8 +32,8 @@
     <div class="navbar-menu" id="navMenu">
       <div class="navbar-start">
         <router-link class="navbar-item" to="/">Home</router-link>
-        <router-link class="navbar-item" to="/album">Album</router-link>
         <router-link class="navbar-item" to="/artist">Artist</router-link>
+        <router-link class="navbar-item" to="/album">Album</router-link>
       </div>
       <div class="navbar-end">
         <div class="navbar-item is-hidden-touch">

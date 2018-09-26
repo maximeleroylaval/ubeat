@@ -12,4 +12,11 @@ new Vue({
   router,
   template: '<App/>',
   components: { App },
+  data: {
+    items: [
+      { message: 'HERE' },
+      { message: 'HI' },
+      { message: 'HEY' }
+    ]
+  }
 });

@@ -1,75 +1,208 @@
 <template>
-
-
-
-
-  <div class="container">
+  <div id="Album" class="container">
     <div class="columns">
       <div class="column is-one-third jaq">
         <img src="@/assets/album.jpg" alt="Jaquette d'album">
       </div>
       <div class="column has-vertically-aligned-content">
-        <div class="">
-          <p class="title is-1">Biglo & Oli</p>
-          <p class="subtitle is-4">La vraie vie (Deluxe)</p>
+          <p class="title is-1">La vraie vie (Deluxe)</p>
+          <p class="subtitle is-4">Biglo & Oli - RAP</p>
           <p class="subtitle is-6">2017 - 25 titres - 2 h 6 min</p>
+
+
+        <div class="extern-buy">
+          <a href="https://itunes.apple.com/fr/artist/bigflo-oli/806433543" target="_blank">
+            <img src="@/assets/itunes_logo.png">
+          </a>
         </div>
       </div>
     </div>
     <div class="columns">
-      <ul>
-        <li>La vraie vie 8:06</li>
-        <li>Alors alors 3:55</li>
-        <li>Personne 4:31</li>
-        <li>S****e 4:23</li>
-        <li>Trop tard 5:07</li>
-        <li>Papa 5:18</li>
-        <li>Répondez-moi 6:00</li>
-        <li>Olivio 5:07</li>
-        <li>La vie normale 4:49</li>
-        <li>Autre part 6:24</li>
-        <li>Dommage 3:58</li>
-        <li>Ça va trop vite 4:25</li>
-        <li>Sac à dos 5:07</li>
-        <li>Dans mon lit 7:05</li>
-        <li>Je suis 4:35</li>
-        <li>Cigarette 5:25</li>
-        <li>Dites rien à ma mère 3:58</li>
-        <li>Dommage (Acoustic) 3:32</li>
-        <li>Pour un pote (feat. Jean Dujardin) [Bande originale du film "Brice 3"] 4:52</li>
-        <li>À mon retour 5:12</li>
-        <li>Début d'empire 6:43</li>
-        <li>La tempête 5:18</li>
-        <li>Du disque dur au disque d'or 5:17</li>
-        <li>Mytho 3:37</li>
-        <li>Shape Of You 3:17</li>
-      </ul>
+
+
+      <!--<ul id="example-1">
+        <li v-for="item in items">
+          {{ item.message }}
+        </li>
+      </ul>-->
+      <div class="column">
+
+        <table id="playlist" class="table is-narrow is-hoverable is-fullwidth">
+          <tbody>
+          <tr>
+            <td>1</td>
+            <td><i class="fas fa-play-circle"></i></td>
+            <td>La vraie vie</td>
+            <td>8:06</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td><i class="fas fa-play-circle"></i></td>
+            <td>Alors alors</td>
+            <td>3:55</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td><i class="fas fa-play-circle"></i></td>
+            <td>Personne</td>
+            <td>4:31</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td><i class="fas fa-play-circle"></i></td>
+            <td>S****e</td>
+            <td>4:23</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td><i class="fas fa-play-circle"></i></td>
+            <td>Trop tard</td>
+            <td>5:07</td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td><i class="fas fa-play-circle"></i></td>
+            <td>Papa</td>
+            <td>5:18</td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td><i class="fas fa-play-circle"></i></td>
+            <td>Répondez-moi</td>
+            <td>6:00</td>
+          </tr>
+          <tr>
+            <td>8</td>
+            <td><i class="fas fa-play-circle"></i></td>
+            <td>Olivio</td>
+            <td>5:07</td>
+          </tr>
+          <tr>
+            <td>9</td>
+            <td><i class="fas fa-play-circle"></i></td>
+            <td>La vie normale</td>
+            <td>4:49</td>
+          </tr>
+          <tr>
+            <td>10</td>
+            <td><i class="fas fa-play-circle"></i></td>
+            <td>Autre part</td>
+            <td>6:24</td>
+          </tr>
+          <tr>
+            <td>11</td>
+            <td><i class="fas fa-play-circle"></i></td>
+            <td>Dommage</td>
+            <td>3:58</td>
+          </tr>
+          <tr>
+            <td>12</td>
+            <td><i class="fas fa-play-circle"></i></td>
+            <td>Ça va trop vite</td>
+            <td>4:25</td>
+          </tr>
+          <tr>
+            <td>13</td>
+            <td><i class="fas fa-play-circle"></i></td>
+            <td>Sac à dos</td>
+            <td>5:27</td>
+          </tr>
+          <tr>
+            <td>14</td>
+            <td><i class="fas fa-play-circle"></i></td>
+            <td>Dans mon lit</td>
+            <td>7:05</td>
+          </tr>
+          <tr>
+            <td>15</td>
+            <td><i class="fas fa-play-circle"></i></td>
+            <td>Je suis</td>
+            <td>4:35</td>
+          </tr>
+          <tr>
+            <td>16</td>
+            <td><i class="fas fa-play-circle"></i></td>
+            <td>Cigarette</td>
+            <td>5:25</td>
+          </tr>
+          <tr>
+            <td>17</td>
+            <td><i class="fas fa-play-circle"></i></td>
+            <td>Dites rien à ma mère</td>
+            <td>3:58</td>
+          </tr>
+          <tr>
+            <td>18</td>
+            <td><i class="fas fa-play-circle"></i></td>
+            <td>Dommage (Acoustic)</td>
+            <td>3:32</td>
+          </tr>
+          <tr>
+            <td>19</td>
+            <td><i class="fas fa-play-circle"></i></td>
+            <td>Pour un pote (feat. Jean Dujardin) [Bande originale du film "Brice 3"]</td>
+            <td>4:52</td>
+          </tr>
+          <tr>
+            <td>20</td>
+            <td><i class="fas fa-play-circle"></i></td>
+            <td>À mon retour</td>
+            <td>5:12</td>
+          </tr>
+          <tr>
+            <td>21</td>
+            <td><i class="fas fa-play-circle"></i></td>
+            <td>Début d'empire</td>
+            <td>6:43</td>
+          </tr>
+          <tr>
+            <td>22</td>
+            <td><i class="fas fa-play-circle"></i></td>
+            <td>La tempête</td>
+            <td>5:18</td>
+          </tr>
+          <tr>
+            <td>23</td>
+            <td><i class="fas fa-play-circle"></i></td>
+            <td>Du disque dur au disque d'or</td>
+            <td>5:17</td>
+          </tr>
+          <tr>
+            <td>24</td>
+            <td><i class="fas fa-play-circle"></i></td>
+            <td>Mytho</td>
+            <td>3:37</td>
+          </tr>
+          <tr>
+            <td>25</td>
+            <td><i class="fas fa-play-circle"></i></td>
+            <td>Shape of You</td>
+            <td>3:17</td>
+          </tr>
+          </tbody>
+        </table>
+
+      </div>
+
     </div>
   </div>
-  <!--<p>nom d’artiste <br/><br />
-
-    lien pour achat sur itunes avec logo: https://www.apple.com/ca/itunes/link/<br/><br />
-
-    nom de l’album<br/><br />
-
-    date de sortie<br/><br />
-
-    nombre de pistes<br/><br />
-
-    genre<br/><br />
-
-    couverture<br/><br />
-
-    liste des pistes incluant (nom, durée, numéro, bouton play)<br/><br /></p>-->
 </template>
 
 <style>
-  .column.has-vertically-aligned-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  #Album {
+    padding-top: 40px;
   }
   .jaq img {
     border-radius: 50%;
+    margin-bottom: 40px;
+  }
+  .extern-buy img {
+    max-width: 60px;
+  }
+
+  #playlist tr td:nth-child(1),
+  #playlist tr td:nth-child(2){
+    max-width: 16px;
   }
 </style>
+
