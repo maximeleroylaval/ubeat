@@ -7,18 +7,6 @@
       <router-link class="navbar-item" to="/">
         <img src="@/assets/logo.jpg" alt="UBeat app" height="128">
       </router-link>
-      <div class="navbar-item is-hidden-desktop">
-        <div class="field has-addons">
-          <div class="control">
-            <input class="input" type="text" placeholder="Search">
-          </div>
-          <div class="control">
-            <a class="button is-dark">
-              <i class="fas fa-search"></i>
-            </a>
-          </div>
-        </div>
-      </div>
       <div class="navbar-item">
         <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
           <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
@@ -33,7 +21,7 @@
       <div class="navbar-start">
         <router-link class="navbar-item" to="/">Home</router-link>
         <router-link class="navbar-item" to="/artist">Artist</router-link>
-        <router-link class="navbar-item" to="/album">Album</router-link>
+        <a class="navbar-item" >Playlist</a>
       </div>
       <div class="navbar-end">
         <div class="navbar-item is-hidden-touch">

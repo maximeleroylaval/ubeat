@@ -6,7 +6,7 @@
       <div class="column is-one-third jaq">
         <img src="@/assets/bigflo-oli-artist.jpg" alt="Jaquette d'album">
       </div>
-      <div class="column has-vertically-aligned-content">
+      <div class="column has-vertically-aligned-content left">
         <p class="title is-2">Biglo & Oli - RAP</p>
         <p class="subtitle is-4">2017 - 3 Albums</p>
 
@@ -18,17 +18,11 @@
       </div>
     </div>
     <div class="columns container-list-albums">
-      <div class="column has-vertically-aligned-content">
-        <a class="play"><i class="far fa-play-circle fa-4x"></i></a>
-        <img class="img-album" src="https://i.scdn.co/image/ed4b3d73d77249c931b98c10a8ed5222a6e42716">
-      </div>
-      <div class="column has-vertically-aligned-content">
-        <a class="play"><i class="far fa-play-circle fa-4x"></i></a>
-        <img class="img-album" src="https://i.scdn.co/image/9b31facd15b50f8fc11882ddbe2252452149cedc">
-      </div>
-      <div class="column has-vertically-aligned-content">
-        <a class="play"><i class="far fa-play-circle fa-4x"></i></a>
-        <img class="img-album" src="https://i.scdn.co/image/3a0346c5b9f0d21a99a9d0094281066017d53228">
+      <div class="column is-3 has-text-centered">
+        <router-link to="/Album">
+        <i class="far fa-play-circle fa-4x play"></i>
+          <img class="img-album" src="https://i.scdn.co/image/3a0346c5b9f0d21a99a9d0094281066017d53228">
+        </router-link>
       </div>
     </div>
   </div>
@@ -48,8 +42,16 @@
   .container-list-albums div {
     position:relative
   }
-  .container-list-albums div .play {
+  .container-list-albums div a {
+    display: block;
+  }
+  .container-list-albums div svg {
     position:absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    margin: auto;
     color:black;
     display: none;
   }

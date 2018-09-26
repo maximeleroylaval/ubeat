@@ -1,10 +1,10 @@
 <template>
   <div id="Album" class="container">
-    <div class="columns">
+    <div class="columns is-centered header">
       <div class="column is-one-third jaq">
         <img src="@/assets/album.jpg" alt="Jaquette d'album">
       </div>
-      <div class="column has-vertically-aligned-content">
+      <div class="column has-vertically-aligned-content left">
         <p class="title is-1">{{ album[0].title }}</p>
         <p class="subtitle is-4">{{ album[0].artist }} - {{ album[0].kind }}</p>
         <p class="subtitle is-6">{{ album[0].releaseYear }} - {{ album[0].songs.length }} tracks - 2 h 6 min</p>
@@ -194,9 +194,11 @@
   #Album {
     padding-top: 40px;
   }
+  .header {
+    margin-bottom: 40px;
+  }
   .jaq img {
     border-radius: 50%;
-    margin-bottom: 40px;
   }
   .extern-buy img {
     max-width: 60px;
@@ -205,5 +207,12 @@
   #playlist tr td:nth-child(1),
   #playlist tr td:nth-child(2){
     max-width: 16px;
+  }
+
+  @media screen and (max-width: 1024px) {
+    #playlist tr td:nth-child(1),
+    #playlist tr td:nth-child(2){
+      max-width: 25px;
+    }
   }
 </style>
