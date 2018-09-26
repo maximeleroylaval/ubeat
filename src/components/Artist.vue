@@ -2,47 +2,33 @@
 
 <template>
   <div id="Album" class="container">
-      <article class="media">
-        <div class="column is-one-third">
-          <img src="@/assets/bigflo-oli-artist.jpg" alt="Jaquette d'album">
-        </div>
-        <div class="media-content">
-          <div class="content">
-            <p class="title is-2">Biglo & Oli - RAP</p>
-            <p class="subtitle is-4">2017 - 3 Albums</p>
+    <div class="columns">
+      <div class="column is-one-third jaq">
+        <img src="@/assets/bigflo-oli-artist.jpg" alt="Jaquette d'album">
+      </div>
+      <div class="column has-vertically-aligned-content">
+        <p class="title is-2">Biglo & Oli - RAP</p>
+        <p class="subtitle is-4">2017 - 3 Albums</p>
 
-            <div class="extern-buy">
-              <a href="https://itunes.apple.com/fr/artist/bigflo-oli/806433543" target="_blank">
-                <img src="@/assets/itunes_logo.png">
-              </a>
-            </div>
-          </div>
+        <div class="extern-buy">
+          <a href="https://itunes.apple.com/fr/artist/bigflo-oli/806433543" target="_blank">
+            <img src="@/assets/itunes_logo.png">
+          </a>
         </div>
-      </article>
+      </div>
+    </div>
     <div class="columns container-list-albums">
-      <div class="column is-2-desktop-only is-6-mobile has-vertically-aligned-content">
+      <div class="column has-vertically-aligned-content">
         <a class="play"><i class="far fa-play-circle fa-4x"></i></a>
-        <img src="https://bulma.io/images/placeholders/256x256.png">
+        <img class="img-album" src="https://i.scdn.co/image/ed4b3d73d77249c931b98c10a8ed5222a6e42716">
       </div>
-      <div class="column is-2-desktop-only is-6-mobile has-vertically-aligned-content">
+      <div class="column has-vertically-aligned-content">
         <a class="play"><i class="far fa-play-circle fa-4x"></i></a>
-        <img src="https://bulma.io/images/placeholders/256x256.png">
+        <img class="img-album" src="https://i.scdn.co/image/9b31facd15b50f8fc11882ddbe2252452149cedc">
       </div>
-      <div class="column is-2-desktop-only is-6-mobile has-vertically-aligned-content">
+      <div class="column has-vertically-aligned-content">
         <a class="play"><i class="far fa-play-circle fa-4x"></i></a>
-        <img src="https://bulma.io/images/placeholders/256x256.png">
-      </div>
-      <div class="column is-2-desktop-only is-6-mobile has-vertically-aligned-content">
-        <a class="play"><i class="far fa-play-circle fa-4x"></i></a>
-        <img src="https://bulma.io/images/placeholders/256x256.png">
-      </div>
-      <div class="column is-2-desktop-only is-6-mobile has-vertically-aligned-content">
-        <a class="play"><i class="far fa-play-circle fa-4x"></i></a>
-        <img src="https://bulma.io/images/placeholders/256x256.png">
-      </div>
-      <div class="column is-2-desktop-only is-6-mobile has-vertically-aligned-content">
-        <a class="play"><i class="far fa-play-circle fa-4x"></i></a>
-        <img src="https://bulma.io/images/placeholders/256x256.png">
+        <img class="img-album" src="https://i.scdn.co/image/3a0346c5b9f0d21a99a9d0094281066017d53228">
       </div>
     </div>
   </div>
@@ -75,7 +61,10 @@
     z-index: 2;
   }
 
-
+.img-album{
+  width: 256px;
+  height: 256px;
+}
   #playlist tr td:nth-child(1),
   #playlist tr td:nth-child(2){
     max-width: 16px;
