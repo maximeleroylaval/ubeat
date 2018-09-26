@@ -5,11 +5,9 @@
         <img src="@/assets/album.jpg" alt="Jaquette d'album">
       </div>
       <div class="column has-vertically-aligned-content">
-          <p class="title is-1">{{ album[0].title }}</p>
-          <p class="subtitle is-4">{{ album[0].artist }} - {{ album[0].kind }}</p>
-          <p class="subtitle is-6">{{ album[0].releaseYear }} - {{ album[0].songs.length }} tracks - 2 h 6 min</p>
-
-
+        <p class="title is-1">{{ album[0].title }}</p>
+        <p class="subtitle is-4">{{ album[0].artist }} - {{ album[0].kind }}</p>
+        <p class="subtitle is-6">{{ album[0].releaseYear }} - {{ album[0].songs.length }} tracks - 2 h 6 min</p>
         <div class="extern-buy">
           <a href="https://itunes.apple.com/fr/artist/bigflo-oli/806433543" target="_blank">
             <img src="@/assets/itunes_logo.png">
@@ -18,8 +16,6 @@
       </div>
     </div>
     <div class="columns">
-
-
       <div class="column">
 
         <table id="playlist" class="table is-narrow is-hoverable is-fullwidth">
