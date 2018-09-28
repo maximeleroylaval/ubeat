@@ -17,8 +17,8 @@
         </div>
       </div>
     </div>
-    <div class="columns container-list-albums">
-      <div class="column is-3 has-text-centered">
+    <div class="columns container-list">
+      <div class="column is-one-third  is-one-third-tablet has-text-centered">
         <router-link to="/Album">
         <i class="far fa-play-circle fa-4x play"></i>
           <img class="img-album" src="https://i.scdn.co/image/3a0346c5b9f0d21a99a9d0094281066017d53228">
@@ -39,13 +39,13 @@
   .extern-buy img {
     max-width: 60px;
   }
-  .container-list-albums div {
+  .container-list div {
     position:relative
   }
-  .container-list-albums div a {
+  .container-list div a {
     display: block;
   }
-  .container-list-albums div svg {
+  .container-list div svg {
     position:absolute;
     top: 0;
     bottom: 0;
@@ -55,10 +55,10 @@
     color:black;
     display: none;
   }
-  .container-list-albums div:hover img {
+  .container-list div:hover img {
     opacity: 0.7;
   }
-  .container-list-albums div:hover .play{
+  .container-list div:hover .play{
     display: block;
     z-index: 2;
   }
