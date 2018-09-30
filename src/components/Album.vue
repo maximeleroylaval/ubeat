@@ -2,7 +2,7 @@
   <div id="Album" class="container">
     <div class="columns is-centered header">
       <div class="column is-one-third jaq">
-        <img src="@/assets/album.jpg" alt="Jaquette d'album">
+        <img src="@/assets/img/album.jpg" alt="Jaquette d'album">
       </div>
       <div class="column has-vertically-aligned-content left">
         <p class="title is-1">{{ album[0].title }}</p>
@@ -10,7 +10,7 @@
         <p class="subtitle is-6">{{ album[0].releaseYear }} - {{ album[0].songs.length }} tracks - 2 h 6 min</p>
         <div class="extern-buy">
           <a href="https://itunes.apple.com/fr/album/la-vraie-vie/1240295989" target="_blank">
-            <img src="@/assets/itunes_logo.png">
+            <img src="@/assets/img/itunes_logo.png">
           </a>
         </div>
       </div>

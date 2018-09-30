@@ -5,16 +5,15 @@
 
 
       <router-link class="navbar-item" to="/">
-        <img src="@/assets/logo.jpg" alt="UBeat app" height="128">
+        <img src="@/assets/img/LogoTextOnly.png" alt="UBeat app" height="128">
       </router-link>
-      <div class="navbar-item">
+
+
+      <div class="navbar-item right">
         <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
           <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
         </a>
       </div>
-
-
-
     </div>
 
     <div class="navbar-menu" id="navMenu">
@@ -23,7 +22,7 @@
         <a class="navbar-item" >Playlist</a>
       </div>
       <div class="navbar-end">
-        <div class="navbar-item is-hidden-touch">
+        <div class="navbar-item">
           <div class="field has-addons">
             <div class="control">
               <input class="input" type="text" placeholder="Search">
@@ -35,18 +34,21 @@
             </div>
           </div>
         </div>
-        <div class="navbar-item has-dropdown is-hoverable is-hidden-touch">
-          <a class="navbar-link">
+
+
+        <div class="navbar-item has-dropdown is-hoverable" id="dropdown-user">
+          <a class="navbar-link is-hidden-touch">
             <i class="fas fa-user-circle fa-2x"></i>
           </a>
           <div class="navbar-dropdown">
             <div class="navbar-item">
-              User
+              <i class="fas fa-user-circle fa-2x is-hidden-desktop"></i>
+              John Doe
             </div>
             <hr class="dropdown-divider">
 
             <a class="navbar-item">
-              Settings
+              Profil
             </a>
             <a class="navbar-item">
               Log out
@@ -93,5 +95,16 @@
   }
   .navbar-burger span {
     color: black;
+  }
+  .navbar-item.right {
+    margin-left: auto;
+    margin-right: 0;
+  }
+
+
+  @media screen and (max-width: 1087px) {
+    #dropdown-user .dropdown-divider {
+      display: none;
+    }
   }
 </style>
