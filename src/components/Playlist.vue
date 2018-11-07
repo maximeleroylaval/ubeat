@@ -78,7 +78,6 @@
         this.closeModal();
       },
       deleteSongFromPlaylist(id) {
-        console.log(id);
         api.deleteSongFromPlaylist(this.idPlaylist, id);
         for (let i = 0; i < this.tracks.length; i += 1) {
           if (id === this.tracks[i].trackId) {

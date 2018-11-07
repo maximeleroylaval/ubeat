@@ -25,7 +25,7 @@
 
 
 
-        <div class="navbar-item has-dropdown is-hoverable" id="dropdown-user">
+        <div class="navbar-item has-dropdown is-hoverable" id="dropdown-user" v-if="user">
           <a class="navbar-link is-hidden-touch">
             <i class="fas fa-user-circle fa-2x"></i>
           </a>

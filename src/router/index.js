@@ -15,13 +15,15 @@ export default new Router({
       name: 'Home',
       component: Home,
     }, {
-      path: '/artist',
+      path: '/artist/:id',
       name: 'Artist',
-      component: Artist
+      component: Artist,
+      props: true
     }, {
-      path: '/album',
+      path: '/album/:id',
       name: 'Album',
-      component: Album
+      component: Album,
+      props: true
     }, {
       path: '/playlists',
       name: 'Playlists',

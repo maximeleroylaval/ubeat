@@ -42,9 +42,7 @@
         const timestamp = new Date().getUTCMilliseconds();
         this.track.trackId = timestamp;
 
-        console.log(JSON.stringify(this.track));
-        const newTrack = await api.addSongToPlaylist(this.idPlaylist, JSON.stringify(this.track));
-        console.log(newTrack);
+        await api.addSongToPlaylist(this.idPlaylist, JSON.stringify(this.track));
         this.$emit('input', false);
       }
     },

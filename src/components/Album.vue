@@ -5,6 +5,7 @@
         <img v-bind:src="album.artworkUrl100" alt="Jaquette d'album">
       </div>
       <div class="column has-vertically-aligned-content left">
+        {{ album }}
         <p class="title is-1">{{ album.artistName }}</p>
         <p class="subtitle is-4">{{ album.primaryGenreName }}</p>
         <p class="subtitle is-6">{{ album.releaseDate }} - {{ album.trackCount }} tracks - Duration (TODO)</p>
@@ -15,7 +16,6 @@
         </div>
       </div>
     </div>
-    {{ album.id }}
     <div class="columns">
       <div class="column">
 
@@ -52,15 +52,21 @@
 
   export default {
     name: 'Album',
+    props: {
+    },
     data() {
       return {
+        id: this.$route.params.id,
         album: Album,
         tracks: Track
       };
     },
     async created() {
-      const tmp = await api.getTracksFromAlbum('1125488753');
-      this.tracks = tmp.results;
+      const tmpAlbum = await api.getAlbum(this.id);
+      this.album = tmpAlbum.results;
+
+      const tmpTracks = await api.getTracksFromAlbum(this.id);
+      this.tracks = tmpTracks.results;
     },
   };
 </script>
