@@ -48,6 +48,32 @@ export const updatePlaylist = (id, name) =>
     });
 
 
+export const addSongToPlaylist = (id, track) =>
+  axios.post(`https://ubeat.herokuapp.com/playlists/${id}/tracks?access_token=${accessToken}`, {
+    track
+  })
+    .then(response => response.data)
+    .catch(() => {
+    });
+
+export const getAlbum = id =>
+  axios.get(`https://ubeat.herokuapp.com/albums/${id}?access_token=${accessToken}`)
+    .then(response => response.data)
+    .catch(() => {
+    });
+
+export const getArtist = id =>
+  axios.get(`https://ubeat.herokuapp.com/artists/${id}?access_token=${accessToken}`)
+    .then(response => response.data)
+    .catch(() => {
+    });
+
+export const getTracksFromAlbum = id =>
+  axios.get(`https://ubeat.herokuapp.com/albums/${id}/tracks?access_token=${accessToken}`)
+    .then(response => response.data)
+    .catch(() => {
+    });
+
 export const getAllPlaylist = () =>
   axios.get(`https://ubeat.herokuapp.com/playlists/?access_token=${accessToken}`)
     .then(response => response.data)
@@ -56,6 +82,11 @@ export const getAllPlaylist = () =>
 
 export const deletePlaylist = id =>
   axios.delete(`https://ubeat.herokuapp.com/playlists/${id}?access_token=${accessToken}`)
+    .then(response => response.data)
+    .catch(() => {
+    });
+export const deleteSongFromPlaylist = (id, idTrack) =>
+  axios.delete(`https://ubeat.herokuapp.com/playlists/${id}/tracks/${idTrack}?access_token=${accessToken}`)
     .then(response => response.data)
     .catch(() => {
     });

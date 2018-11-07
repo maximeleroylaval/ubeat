@@ -1,0 +1,23 @@
+export default class Album {
+  wrapperType;
+  collectionType;
+  artistId;
+  collectionId;
+  amgArtistId;
+  artistName;
+  collectionName;
+  collectionCensoredName;
+  artistViewUrl;
+  collectionViewUrl;
+  artworkUrl60;
+  artworkUrl100;
+  collectionPrice;
+  collectionExplicitness;
+  contentAdvisoryRating;
+  trackCount;
+  copyright;
+  country;
+  currency;
+  releaseDate;
+  primaryGenreName;
+}

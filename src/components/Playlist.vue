@@ -1,8 +1,8 @@
 <template>
-
-  <div v-if="name">
+<div>
+  <div v-if="namePlaylist">
     <div class="head">
-      <h1 class="title is-1">{{ name }}</h1>
+      <h1 class="title is-1">{{ namePlaylist }}</h1>
       <a class="button" v-on:click="openModal"><i class="fas fa-pen"></i></a>
     </div>
 
@@ -21,10 +21,14 @@
         <td>{{ item.artistName }}</td>
         <td>{{ item.collectionName }}</td>
         <td>
-          <a class="button" v-on:click="deleteSong(item.trackId)"><i class="fas fa-trash-alt"></i></a>
+          <a class="button" v-on:click="deleteSongFromPlaylist(item.trackId)"><i class="fas fa-trash-alt"></i></a>
         </td>
       </tr>
       </tbody>
+      <a class="button" v-on:click="addNewSong = true">Add song&nbsp;<i class="fas fa-plus"></i></a>
+      <div v-if="addNewSong">
+        <newSongModal v-bind:idPlaylist="idPlaylist" v-model="addNewSong"></newSongModal>
+      </div>
     </table>
 
 
@@ -46,16 +50,24 @@
         </footer>
       </div>
     </div>
-  </div>
+
+
+
+</div>
+</div>
 
 </template>
 
 <script>
   import * as api from '@/api';
   import * as track from '@/Model/Track';
+  import newSongModal from './ModalAddNewSong';
 
   export default {
     name: 'Playlist',
+    components: {
+      newSongModal
+    },
     props: {
     },
     methods: {
@@ -65,7 +77,14 @@
         this.newName = '';
         this.closeModal();
       },
-      deleteSong() {
+      deleteSongFromPlaylist(id) {
+        console.log(id);
+        api.deleteSongFromPlaylist(this.idPlaylist, id);
+        for (let i = 0; i < this.tracks.length; i += 1) {
+          if (id === this.tracks[i].trackId) {
+            this.tracks.splice(i, 1);
+          }
+        }
       },
       openModal() {
         document.getElementById('modal').classList.add('is-active');
@@ -77,17 +96,19 @@
       addSong() {
       }
     },
-    async created() {
+    async mounted() {
       const play = await api.getPlaylist(this.idPlaylist);
-      this.name = play.name;
+
+      this.namePlaylist = play.name;
       this.tracks = play.tracks;
     },
     data() {
       return {
         idPlaylist: this.$route.params.id,
-        name: null,
+        namePlaylist: null,
         newName: null,
         tracks: track,
+        addNewSong: false,
       };
     }
   };

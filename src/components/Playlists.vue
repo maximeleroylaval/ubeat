@@ -1,6 +1,8 @@
 <template>
 <div>
-  <p v-if="!list">Loading...</p>
+  <div v-if="!list" >
+    <span class="fa fa-spinner fa-spin"></span>
+  </div>
   <table v-else id="playlists" class="table is-narrow is-hoverable is-fullwidth">
     <thead>
     <tr>
@@ -86,7 +88,7 @@
     data() {
       return {
         user: null,
-        list: [],
+        list: null,
         nameNewPaylist: null
       };
     },
