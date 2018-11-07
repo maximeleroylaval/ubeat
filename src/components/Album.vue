@@ -9,7 +9,7 @@
         <p class="subtitle is-4">{{ album[0].artist }} - {{ album[0].kind }}</p>
         <p class="subtitle is-6">{{ album[0].releaseYear }} - {{ album[0].songs.length }} tracks - 2 h 6 min</p>
         <div class="extern-buy">
-          <a href="https://itunes.apple.com/fr/album/la-vraie-vie/1240295989" target="_blank">
+          <a href="https://itunes.apple.com/fr/album/la-vraie-vie-deluxe/1301468896" target="_blank">
             <img src="@/assets/img/itunes_logo.png">
           </a>
         </div>

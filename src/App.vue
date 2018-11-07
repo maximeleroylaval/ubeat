@@ -1,19 +1,37 @@
 <template>
   <div id="app">
-    <nav-menu></nav-menu>
-    <router-view></router-view>
+    <Navigation v-bind:user="user"></Navigation>
+    <router-view v-bind:user="user"></router-view>
   </div>
 </template>
 
 <script>
-import Navigation from '@/components/Navigation';
+  import * as api from '@/api';
+  import Navigation from '@/components/Navigation';
+  import Home from '@/components/Home';
 
-export default {
-  name: 'app',
-  components: {
-    'nav-menu': Navigation
-  }
-};
+  export default {
+    name: 'app',
+    props: {
+    },
+    components: {
+      Navigation,
+      Home
+    },
+    async created() {
+      this.user = await api.getTokenInfo();
+    },
+    data() {
+      return {
+        user: {
+          following: [],
+          email: String,
+          token: String,
+          id: String
+        }
+      };
+    },
+  };
 </script>
 
 <style>

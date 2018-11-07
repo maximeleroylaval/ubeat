@@ -35,12 +35,36 @@
             <img src="@/assets/img/album.jpg" alt="Jaquette d'album">
             <p>La vraie vie</p>
           </div>
-
         </router-link>
       </div>
     </div>
   </div>
 </template>
+
+<script>
+  export default {
+    name: 'Home',
+    props: {
+      handler: Object,
+      access_token: String,
+    },
+    methods: {
+
+    },
+    data() {
+      return {
+        user: {
+          following: [],
+          email: String,
+          token: String,
+          id: String
+        }
+      };
+    },
+    mounted() {
+    }
+  };
+</script>
 
 <style>
   #Home {
