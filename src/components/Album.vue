@@ -5,10 +5,9 @@
         <img v-bind:src="album.artworkUrl100" alt="Jaquette d'album">
       </div>
       <div class="column has-vertically-aligned-content left">
-        {{ album }}
         <p class="title is-1">{{ album.artistName }}</p>
         <p class="subtitle is-4">{{ album.primaryGenreName }}</p>
-        <p class="subtitle is-6">{{ album.releaseDate }} - {{ album.trackCount }} tracks - Duration (TODO)</p>
+        <p class="subtitle is-6">{{ getReleaseDate() }} - {{ album.trackCount }} tracks - {{ getTotalDuration() }}</p>
         <div class="extern-buy">
           <a href="https://itunes.apple.com/fr/album/la-vraie-vie-deluxe/1301468896" target="_blank">
             <img src="@/assets/img/itunes_logo.png">
@@ -33,7 +32,7 @@
             <td>{{index + 1}}</td>
             <td><i class="fas fa-play-circle"></i></td>
             <td>{{item.trackName }}</td>
-            <td>{{item.trackTimeMillis }}</td>
+            <td>{{ getDuration(item.trackTimeMillis) }}</td>
           </tr>
           </tbody>
         </table>
@@ -54,6 +53,37 @@
     name: 'Album',
     props: {
     },
+    methods: {
+      msToTime(s) {
+        const ms = s % 1000;
+        let news = (s - ms) / 1000;
+        let secs = news % 60;
+        news = (news - secs) / 60;
+        let mins = news % 60;
+        if (mins < 10) {
+          mins = `0${mins}`;
+        }
+        if (secs < 10) {
+          secs = `0${secs}`;
+        }
+
+        return `${mins}:${secs}`;
+      },
+      getReleaseDate() {
+        const date = new Date(this.album.releaseDate);
+        return date.getFullYear();
+      },
+      getTotalDuration() {
+        let total = 0;
+        for (let i = 0; i < this.tracks.length; i += 1) {
+          total += this.tracks[i].trackTimeMillis;
+        }
+        return this.msToTime(total);
+      },
+      getDuration(s) {
+        return this.msToTime(s);
+      }
+    },
     data() {
       return {
         id: this.$route.params.id,
@@ -63,7 +93,7 @@
     },
     async created() {
       const tmpAlbum = await api.getAlbum(this.id);
-      this.album = tmpAlbum.results;
+      this.album = tmpAlbum.results[0];
 
       const tmpTracks = await api.getTracksFromAlbum(this.id);
       this.tracks = tmpTracks.results;
@@ -80,6 +110,8 @@
   }
   .jaq img {
     border-radius: 50%;
+    width: 300px;
+    max-width: 100%;
   }
   .extern-buy img {
     max-width: 60px;

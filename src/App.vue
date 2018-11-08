@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <Navigation v-bind:user="user"></Navigation>
-    <router-view v-bind:user="user"></router-view>
+    <section class="section">
+      <router-view v-bind:user="user"></router-view>
+    </section>
   </div>
 </template>
 

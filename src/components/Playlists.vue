@@ -55,6 +55,8 @@
 </template>
 
 <script>
+  /* eslint-disable no-alert */
+
   import * as api from '@/api';
 
   export default {
@@ -81,8 +83,12 @@
       },
       async createPlaylist() {
         const newPlaylist = await api.createPlaylist(this.nameNewPaylist);
+        if (newPlaylist) {
+          this.list.push(newPlaylist);
+        } else {
+          alert('An error occured');
+        }
         this.closeModal();
-        this.list.push(newPlaylist);
       }
     },
     data() {

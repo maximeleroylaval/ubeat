@@ -6,6 +6,7 @@
       <div class="column is-one-third jaq has-text-centered">
         <img src="" alt="Jaquette d'album">
       </div>
+      {{ artist.artistId }}
       <div class="column has-vertically-aligned-content left">
         <p class="title is-2">{{ artist.artistName }} - {{ artist.primaryGenreName }}</p>
 
