@@ -60,7 +60,7 @@
 
 <script>
   import * as api from '@/api';
-  import * as track from '@/Model/Track';
+  import * as track from '@/models/Track';
   import newSongModal from './ModalAddNewSong';
 
   export default {

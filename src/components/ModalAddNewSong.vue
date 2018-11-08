@@ -23,7 +23,7 @@
 
 <script>
   import * as api from '@/api';
-  import * as trackModel from '@/Model/Track';
+  import * as trackModel from '@/models/Track';
 
   export default {
     name: 'ModalAddNewSong',

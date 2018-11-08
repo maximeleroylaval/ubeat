@@ -45,8 +45,8 @@
 
 
 <script>
-  import * as Album from '@/Model/Album';
-  import * as Track from '@/Model/Track';
+  import * as Album from '@/models/Album';
+  import * as Track from '@/models/Track';
   import * as api from '@/api';
 
   export default {

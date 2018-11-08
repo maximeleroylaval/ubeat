@@ -36,7 +36,7 @@
 
 <script>
   import * as api from '@/api';
-  import * as Artist from '@/Model/Artist';
+  import * as Artist from '@/models/Artist';
 
   export default {
     name: 'Home',
