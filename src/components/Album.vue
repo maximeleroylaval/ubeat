@@ -4,8 +4,9 @@
       <div class="column is-one-third jaq">
         <img v-bind:src="album.artworkUrl100" alt="Jaquette d'album">
       </div>
-      <div class="column has-vertically-aligned-content left">
-        <p class="title is-1">{{ album.artistName }}</p>
+      <div class="column has-vertically-aligned-content left headline">
+        <p class="title is-1">{{ album.collectionName }}</p>
+        <p class="title is-2">{{ album.artistName }}</p>
         <p class="subtitle is-4">{{ album.primaryGenreName }}</p>
         <p class="subtitle is-6">{{ getReleaseDate() }} - {{ album.trackCount }} tracks - {{ getTotalDuration() }}</p>
         <div class="extern-buy">
@@ -23,6 +24,7 @@
           <tr>
             <th>#</th>
             <th></th>
+            <th></th>
             <th>Title</th>
             <th>Duration</th>
           </tr>
@@ -30,15 +32,16 @@
           <tbody>
           <tr v-for="(item, index) in tracks">
             <td>{{index + 1}}</td>
-            <td><i class="fas fa-play-circle"></i></td>
+            <td class="add"><a v-on:click="addNewSong = true" title="Add this song to a playlist"><i class="fas fa-plus"></i></a></td>
+            <td class="play"><a title="Play this song"><i class="fas fa-play-circle"></i></a></td>
             <td>{{item.trackName }}</td>
             <td>{{ getDuration(item.trackTimeMillis) }}</td>
+            <newSongModal v-if="addNewSong" v-bind:track="item" v-model="addNewSong"></newSongModal>
           </tr>
           </tbody>
         </table>
 
       </div>
-
     </div>
   </div>
 </template>
@@ -48,10 +51,14 @@
   import * as Album from '@/models/Album';
   import * as Track from '@/models/Track';
   import * as api from '@/api';
+  import newSongModal from './ModalAddNewSongToPlaylist';
 
   export default {
     name: 'Album',
     props: {
+    },
+    components: {
+      newSongModal
     },
     methods: {
       msToTime(s) {
@@ -88,7 +95,9 @@
       return {
         id: this.$route.params.id,
         album: Album,
-        tracks: Track
+        tracks: Track,
+        addNewSong: false,
+        choosenTrack: null
       };
     },
     async created() {
@@ -116,15 +125,21 @@
   .extern-buy img {
     max-width: 60px;
   }
+  .headline .title.is-1 {
+    margin-bottom: 0;
+  }
 
+  .add a {
+    color: black;
+  }
   #playlist tr td:nth-child(1),
-  #playlist tr td:nth-child(2){
+  .play, .add{
     max-width: 16px;
   }
 
   @media screen and (max-width: 1024px) {
     #playlist tr td:nth-child(1),
-    #playlist tr td:nth-child(2){
+    .play, .add{
       max-width: 25px;
     }
   }

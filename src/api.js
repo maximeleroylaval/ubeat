@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import axios from 'axios';
 
-const accessToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI1YmUyMjQzNzNlZmJkYTAwMDQ0ZWYzNzUiLCJleHAiOjE1NDE3MTk5OTAxODJ9.oVumtlMjzfgvJRwtwBzqOqNsKrTKNR5YG2eEHrcqT2A';
+const accessToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI1YmUyMjQzNzNlZmJkYTAwMDQ0ZWYzNzUiLCJleHAiOjE1NDIwNDEyOTE5ODd9.ylYP7ZELslXgkcpP3apwwXHViJQtZfHObjPTfpLfpdE';
 
 export const login = () =>
   axios.get('https://ubeat.herokuapp.com/playlists/')
