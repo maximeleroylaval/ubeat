@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Navigation v-bind:user="user"></Navigation>
-    <section class="section">
+    <section class="section" v-if="user">
       <router-view v-bind:user="user"></router-view>
     </section>
   </div>
@@ -21,16 +21,12 @@
       Home
     },
     async created() {
+      await api.login();
       this.user = await api.getTokenInfo();
     },
     data() {
       return {
-        user: {
-          following: [],
-          email: String,
-          token: String,
-          id: String
-        }
+        user: null
       };
     },
   };

@@ -57,9 +57,9 @@
       return {
         user: {
           following: [],
-          email: String,
-          token: String,
-          id: String
+          email: null,
+          token: null,
+          id: null
         },
         albums: null,
         artists: null,

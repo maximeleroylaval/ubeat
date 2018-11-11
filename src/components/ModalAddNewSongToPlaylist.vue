@@ -13,7 +13,7 @@
           </div>
           <ul v-else>
             <li v-for="item in list" v-if="item.owner && item.owner.email === user.email" :key="item.id">
-              {{ item.name }}
+              <p><span>{{ item.name }}</span> - <a v-on:click="addSongToPlaylist(item.id)" title="Add this song to this playlist"><i class="fas fa-plus"></i></a></p>
             </li>
           </ul>
         </div>
@@ -28,12 +28,15 @@
 
 <script>
   import * as api from '@/api';
+  import Playlist from './Playlist';
 
   export default {
     name: 'ModalAddNewSongToPlaylist',
+    components: {
+      Playlist
+    },
     props: {
-      track: null,
-      idPlaylist: null
+      track: null
     },
     methods: {
       openModal() {
@@ -43,10 +46,9 @@
         document.getElementById('modalAddNewSong').classList.remove('is-active');
         this.$emit('input', false);
       },
-      async addSong() {
-        this.track.trackId = new Date().getUTCMilliseconds();
-
-        await api.addSongToPlaylist(this.idPlaylist, JSON.stringify(this.track));
+      async addSongToPlaylist(id) {
+        console.log(JSON.stringify(this.track));
+        await api.addSongToPlaylist(id, JSON.stringify(this.track));
         this.$emit('input', false);
       }
     },

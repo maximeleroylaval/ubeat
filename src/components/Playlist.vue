@@ -92,7 +92,8 @@
       closeModal() {
         document.getElementById('modal').classList.remove('is-active');
       },
-      addSong() {
+      addSong(item) {
+        this.tracks.push(item);
       }
     },
     async mounted() {
@@ -107,7 +108,7 @@
         namePlaylist: null,
         newName: null,
         tracks: track,
-        addNewSong: false,
+        addNewSong: false
       };
     }
   };

@@ -95,7 +95,8 @@
       return {
         user: null,
         list: null,
-        nameNewPaylist: null
+        nameNewPaylist: null,
+        token: null
       };
     },
     mounted() {
