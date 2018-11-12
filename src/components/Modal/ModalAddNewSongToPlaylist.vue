@@ -3,7 +3,7 @@
     <div class="modal-background"></div>
     <div class="modal-card">
       <header class="modal-card-head">
-        <p class="modal-card-title">Add new song - {{ track.trackName }}</p>
+        <p class="modal-card-title">{{ track.trackName }}</p>
         <button v-on:click="closeModal" class="delete" aria-label="close"></button>
       </header>
       <section class="modal-card-body">
@@ -13,7 +13,7 @@
           </div>
           <ul v-else>
             <li v-for="item in list" v-if="item.owner && item.owner.email === user.email" :key="item.id">
-              <p><span>{{ item.name }}</span> - <a v-on:click="addSongToPlaylist(item.id)" title="Add this song to this playlist"><i class="fas fa-plus"></i></a></p>
+              <a v-on:click="addSongToPlaylist(item.id)" title="Add this song to this playlist"><i class="fas fa-plus"></i>&nbsp;{{ item.name }}</a>
             </li>
           </ul>
         </div>
@@ -28,12 +28,10 @@
 
 <script>
   import * as api from '@/api';
-  import Playlist from './Playlist';
 
   export default {
     name: 'ModalAddNewSongToPlaylist',
     components: {
-      Playlist
     },
     props: {
       track: null
@@ -47,8 +45,13 @@
         this.$emit('input', false);
       },
       async addSongToPlaylist(id) {
-        console.log(this.track);
-        await api.addSongToPlaylist(id, this.track);
+        if (this.track.length === undefined || this.track.length === 0) {
+          await api.addSongToPlaylist(id, this.track);
+        } else {
+          for (let i = 0; i < this.track.length; i += 1) {
+            api.addSongToPlaylist(id, this.track[i]);
+          }
+        }
         this.$emit('input', false);
       }
     },

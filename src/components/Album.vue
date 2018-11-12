@@ -18,7 +18,6 @@
     </div>
     <div class="columns">
       <div class="column">
-
         <table id="playlist" class="table is-narrow is-hoverable is-fullwidth">
           <thead>
           <tr>
@@ -30,17 +29,18 @@
           </tr>
           </thead>
           <tbody>
-          <tr v-for="(item, index) in tracks">
+          <tr v-for="(item, index) in tracks" :key="item.trackId">
             <td>{{index + 1}}</td>
-            <td class="add"><a v-on:click="addNewSong = true" title="Add this song to a playlist"><i class="fas fa-plus"></i></a></td>
+            <td class="add"><a v-on:click="addNewSong = true; choosenTrack = item" title="Add this song to a playlist"><i class="fas fa-plus"></i></a></td>
             <td class="play"><a title="Play this song"><i class="fas fa-play-circle"></i></a></td>
             <td>{{item.trackName }}</td>
             <td>{{ getDuration(item.trackTimeMillis) }}</td>
-            <newSongModal v-if="addNewSong" v-bind:track="item" v-model="addNewSong"></newSongModal>
           </tr>
           </tbody>
         </table>
-
+        <a class="button" v-on:click="addAllSong = true">Add full album in playlist&nbsp;<i class="fas fa-plus"></i></a>
+        <newSongModal v-if="addNewSong" v-bind:track="choosenTrack" v-model="addNewSong"></newSongModal>
+        <newSongModal v-if="addAllSong" v-bind:track="tracks" v-model="addAllSong"></newSongModal>
       </div>
     </div>
   </div>
@@ -51,7 +51,7 @@
   import * as Album from '@/models/Album';
   import * as Track from '@/models/Track';
   import * as api from '@/api';
-  import newSongModal from './ModalAddNewSongToPlaylist';
+  import newSongModal from './Modal/ModalAddNewSongToPlaylist';
 
   export default {
     name: 'Album',
@@ -97,6 +97,7 @@
         album: Album,
         tracks: Track,
         addNewSong: false,
+        addAllSong: false,
         choosenTrack: null
       };
     },

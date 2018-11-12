@@ -61,7 +61,7 @@
 <script>
   import * as api from '@/api';
   import * as track from '@/models/Track';
-  import newSongModal from './ModalAddNewSong';
+  import newSongModal from './Modal/ModalAddNewSong';
 
   export default {
     name: 'Playlist',
@@ -73,7 +73,7 @@
     methods: {
       updatePlaylist() {
         api.updatePlaylist(this.idPlaylist, this.newName);
-        this.name = this.newName;
+        this.namePlaylist = this.newName;
         this.newName = '';
         this.closeModal();
       },
