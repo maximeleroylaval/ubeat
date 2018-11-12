@@ -25,19 +25,9 @@
       </tr>
       </thead>
       <tbody>
-      <tr v-for="(item, index) in tracks">
-        <td>{{ index + 1 }}</td>
-        <td class="play"><a title="Play this song"><i class="fas fa-play-circle"></i></a></td>
-        <td>{{ item.trackName }}</td>
-        <td>{{ item.artistName }}</td>
-        <td>{{ item.collectionName }}</td>
-        <td>
-          <a class="button" v-on:click="deleteSongFromPlaylist(item.trackId)"><i class="fas fa-trash-alt"></i></a>
-        </td>
-      </tr>
+      <song v-for="(item, index) in tracks" :key="index" v-bind:song="item" v-bind:index="index" v-bind:playlist="true" v-bind:deleteFromPlaylist="deleteSongFromPlaylist"/>
       </tbody>
     </table>
-
 
     <div class="modal" id="modal">
       <div class="modal-background"></div>
@@ -58,8 +48,6 @@
       </div>
     </div>
 
-
-
 </div>
 </div>
 
@@ -68,12 +56,14 @@
 <script>
   import * as api from '@/api';
   import * as track from '@/models/Track';
-  import newSongModal from './Modal/ModalAddNewSong';
+  import newSongModal from '@/components/Modal/ModalAddNewSong';
+  import song from '@/components/Song';
 
   export default {
     name: 'Playlist',
     components: {
-      newSongModal
+      newSongModal,
+      song
     },
     props: {
     },

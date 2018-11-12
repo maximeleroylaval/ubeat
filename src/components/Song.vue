@@ -1,10 +1,17 @@
 <template>
     <tr>
         <td>{{ this.index + 1 }}</td>
-        <td class="add"><a v-on:click="addToPlaylist()" title="Add this song to a playlist"><i class="fas fa-plus"></i></a></td>
+        <td v-if="!this.playlist" class="add"><a v-on:click="addToMyPlaylist()" title="Add this song to a playlist"><i class="fas fa-plus"></i></a></td>
         <td class="play"><a v-on:click="playPreview()" title="Play this song"><i v-bind:id="'playBtn' + this.song.trackId" class="fas fa-play-circle"></i></a></td>
         <td>{{ this.song.trackName }}</td>
-        <td>{{ getDuration() }}</td>
+        <td v-if="!this.playlist">{{ getDuration() }}</td>
+
+        <td v-if="this.playlist">{{ this.song.artistName }}</td>
+        <td v-if="this.playlist">{{ this.song.collectionName }}</td>
+        <td v-if="this.playlist">
+          <a class="button" v-on:click="deleteFromMyPlaylist()"><i class="fas fa-trash-alt"></i></a>
+        </td>
+        <newSongModal v-if="addNewSong" v-bind:track="this.song" v-model="addNewSong"></newSongModal>
     </tr>
 </template>
 
@@ -15,7 +22,9 @@
     name: 'Song',
     props: {
       song: null,
-      index: 0
+      index: 0,
+      playlist: false,
+      deleteFromPlaylist: Function
     },
     components: {
       newSongModal
@@ -54,9 +63,11 @@
           this.audioPreview.pause();
         }
       },
-      addToPlaylist() {
-        this.$emit('addNewSong', true);
-        this.$emit('choosenTrack', this.song);
+      addToMyPlaylist() {
+        this.addNewSong = true;
+      },
+      deleteFromMyPlaylist() {
+        this.deleteFromPlaylist(this.song.trackId);
       }
     },
     data() {

@@ -18,7 +18,7 @@
           <p class="subtitle is-4">{{ album.primaryGenreName }}</p>
           <p class="subtitle is-6">{{ getReleaseDate() }} - {{ album.trackCount }} tracks - {{ getTotalDuration() }}</p>
           <div class="extern-buy">
-            <a href="https://itunes.apple.com/fr/album/la-vraie-vie-deluxe/1301468896" target="_blank">
+            <a v-bind:href="getAlbumLink()" target="_blank">
               <img src="@/assets/img/itunes_logo.png">
             </a>
           </div>
@@ -89,6 +89,9 @@
           total += this.tracks[i].trackTimeMillis;
         }
         return this.msToTime(total);
+      },
+      getAlbumLink() {
+        return this.album.collectionViewUrl;
       }
     },
     data() {
@@ -96,7 +99,6 @@
         id: this.$route.params.id,
         album: Album,
         tracks: Track,
-        addNewSong: false,
         addAllSong: false,
         choosenTrack: null,
         loading: false
