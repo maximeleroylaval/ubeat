@@ -1,7 +1,7 @@
 <template>
     <tr>
         <td>{{ this.index + 1 }}</td>
-        <td class="add"><a v-on:click="addNewSong = true" title="Add this song to a playlist"><i class="fas fa-plus"></i></a></td>
+        <td class="add"><a v-on:click="addToPlaylist()" title="Add this song to a playlist"><i class="fas fa-plus"></i></a></td>
         <td class="play"><a v-on:click="playPreview()" title="Play this song"><i class="fas fa-play-circle"></i></a></td>
         <td>{{ this.song.trackName }}</td>
         <td>{{ getDuration() }}</td>
@@ -40,6 +40,10 @@
             this.audioPreview = new Audio(this.song.previewUrl);
           }
           this.audioPreview.play();
+        },
+        addToPlaylist() {
+          this.$emit('addNewSong', true);
+          this.$emit('choosenTrack', this.song);
         }
       },
       data() {
