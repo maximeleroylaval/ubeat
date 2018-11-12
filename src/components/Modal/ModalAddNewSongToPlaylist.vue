@@ -7,20 +7,16 @@
         <button v-on:click="closeModal" class="delete" aria-label="close"></button>
       </header>
       <section class="modal-card-body">
-        <div class="container">
-          <div v-if="!list">
-            <div class="spinner">
-              <div class="bounce1"></div>
-              <div class="bounce2"></div>
-              <div class="bounce3"></div>
-            </div>
-          </div>
-          <ul v-else>
-            <li v-for="item in list" v-if="item.owner && item.owner.email === user.email" :key="item.id">
-              <a v-on:click="addSongToPlaylist(item.id)" title="Add this song to this playlist"><i class="fas fa-plus"></i>&nbsp;{{ item.name }}</a>
-            </li>
-          </ul>
+        <div v-if="!list" class="spinner">
+          <div class="bounce1"></div>
+          <div class="bounce2"></div>
+          <div class="bounce3"></div>
         </div>
+        <ul v-else>
+          <li v-for="item in list" v-if="item.owner && item.owner.email === user.email" :key="item.id">
+            <a v-on:click="addSongToPlaylist(item.id)" title="Add this song to this playlist"><i class="fas fa-plus"></i>&nbsp;{{ item.name }}</a>
+          </li>
+        </ul>
       </section>
       <footer class="modal-card-foot">
         <button class="button is-success" v-on:click="addSong()">Save</button>
