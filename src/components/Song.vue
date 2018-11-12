@@ -2,7 +2,7 @@
     <tr>
         <td>{{ this.index + 1 }}</td>
         <td class="add"><a v-on:click="addToPlaylist()" title="Add this song to a playlist"><i class="fas fa-plus"></i></a></td>
-        <td v-bind:id="'play' + this.song.trackId" class="play"><a v-on:click="playPreview('play' + this.song.trackId)" title="Play this song"><i class="fas fa-play-circle"></i></a></td>
+        <td class="play"><a v-on:click="playPreview()" title="Play this song"><i v-bind:id="'playBtn' + this.song.trackId" class="fas fa-play-circle"></i></a></td>
         <td>{{ this.song.trackName }}</td>
         <td>{{ getDuration() }}</td>
     </tr>
@@ -38,12 +38,21 @@
       getDuration() {
         return this.msToTime(this.song.trackTimeMillis);
       },
-      playPreview(event) {
+      playPreview() {
         if (this.audioPreview == null) {
           this.audioPreview = new Audio(this.song.previewUrl);
         }
-        this.audioPreview.play();
-        console.log(event);
+        const id = `playBtn${this.song.trackId}`;
+        const button = document.getElementById(id);
+        if (button.classList.contains('fa-play-circle')) {
+          button.classList.remove('fa-play-circle');
+          button.classList.add('fa-pause-circle');
+          this.audioPreview.play();
+        } else {
+          button.classList.remove('fa-pause-circle');
+          button.classList.add('fa-play-circle');
+          this.audioPreview.pause();
+        }
       },
       addToPlaylist() {
         this.$emit('addNewSong', true);
