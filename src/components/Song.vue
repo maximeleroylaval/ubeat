@@ -16,7 +16,8 @@
 </template>
 
 <script>
-  import newSongModal from './Modal/ModalAddNewSongToPlaylist';
+  import * as player from '@/player';
+  import newSongModal from '@/components/Modal/ModalAddNewSongToPlaylist';
 
   export default {
     name: 'Song',
@@ -47,21 +48,22 @@
       getDuration() {
         return this.msToTime(this.song.trackTimeMillis);
       },
-      playPreview() {
-        if (this.audioPreview == null) {
-          this.audioPreview = new Audio(this.song.previewUrl);
-        }
+      changeButtonPlay() {
         const id = `playBtn${this.song.trackId}`;
         const button = document.getElementById(id);
         if (button.classList.contains('fa-play-circle')) {
           button.classList.remove('fa-play-circle');
           button.classList.add('fa-pause-circle');
-          this.audioPreview.play();
         } else {
           button.classList.remove('fa-pause-circle');
           button.classList.add('fa-play-circle');
-          this.audioPreview.pause();
         }
+      },
+      playPreview() {
+        if (this.audioPreview == null) {
+          this.audioPreview = new Audio(this.song.previewUrl);
+        }
+        player.change(this);
       },
       addToMyPlaylist() {
         this.addNewSong = true;

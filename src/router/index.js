@@ -13,7 +13,7 @@ export default new Router({
     {
       path: '/',
       name: 'Home',
-      component: Home,
+      component: Home
     }, {
       path: '/artist/:id',
       name: 'Artist',
@@ -34,5 +34,5 @@ export default new Router({
       component: Playlist,
       props: true
     }
-  ],
+  ]
 });
