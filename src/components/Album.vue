@@ -1,46 +1,46 @@
 <template>
   <div id="Album" class="container">
-    <div class="columns is-centered header">
-      <div class="column is-one-third jaq">
-        <img v-bind:src="album.artworkUrl100" alt="Jaquette d'album">
-      </div>
-      <div class="column has-vertically-aligned-content left headline">
-        <p class="title is-1">{{ album.collectionName }}</p>
-        <p class="title is-2">{{ album.artistName }}</p>
-        <p class="subtitle is-4">{{ album.primaryGenreName }}</p>
-        <p class="subtitle is-6">{{ getReleaseDate() }} - {{ album.trackCount }} tracks - {{ getTotalDuration() }}</p>
-        <div class="extern-buy">
-          <a href="https://itunes.apple.com/fr/album/la-vraie-vie-deluxe/1301468896" target="_blank">
-            <img src="@/assets/img/itunes_logo.png">
-          </a>
-        </div>
-      </div>
-    </div>
     <div class="has-text-centered" v-if="!loading" >
       <div class="lds-dual-ring"></div>
     </div>
-    <div v-if="loading" >
-    <div class="columns">
-      <div class="column">
-        <table id="playlist" class="table is-narrow is-hoverable is-fullwidth">
-          <thead>
-          <tr>
-            <th>#</th>
-            <th></th>
-            <th></th>
-            <th>Title</th>
-            <th>Duration</th>
-          </tr>
-          </thead>
-          <tbody>
-          <song v-for="(item, index) in tracks" :key="index" v-bind:song="item" v-bind:index="index"/>
-          </tbody>
-        </table>
-        <a class="button" v-on:click="addAllSong = true">Add full album in playlist&nbsp;<i class="fas fa-plus"></i></a>
-        <newSongModal v-if="addNewSong" v-bind:track="choosenTrack" v-model="addNewSong"></newSongModal>
-        <newSongModal v-if="addAllSong" v-bind:track="tracks" v-model="addAllSong"></newSongModal>
+    <div v-else>
+      <div class="columns is-centered header">
+        <div class="column is-one-third jaq">
+          <img v-bind:src="album.artworkUrl100" alt="Jaquette d'album">
+        </div>
+        <div class="column has-vertically-aligned-content left headline">
+          <p class="title is-1">{{ album.collectionName }}</p>
+          <p class="title is-2">{{ album.artistName }}</p>
+          <p class="subtitle is-4">{{ album.primaryGenreName }}</p>
+          <p class="subtitle is-6">{{ getReleaseDate() }} - {{ album.trackCount }} tracks - {{ getTotalDuration() }}</p>
+          <div class="extern-buy">
+            <a href="https://itunes.apple.com/fr/album/la-vraie-vie-deluxe/1301468896" target="_blank">
+              <img src="@/assets/img/itunes_logo.png">
+            </a>
+          </div>
+        </div>
       </div>
-    </div>
+
+      <div class="columns">
+        <div class="column">
+          <table id="playlist" class="table is-narrow is-hoverable is-fullwidth">
+            <thead>
+            <tr>
+              <th>#</th>
+              <th></th>
+              <th></th>
+              <th>Title</th>
+              <th>Duration</th>
+            </tr>
+            </thead>
+            <tbody>
+            <song v-for="(item, index) in tracks" :key="index" v-bind:song="item" v-bind:index="index"/>
+            </tbody>
+          </table>
+          <a class="button" v-on:click="addAllSong = true">Add full album in playlist&nbsp;<i class="fas fa-plus"></i></a>
+          <newSongModal v-if="addAllSong" v-bind:track="tracks" v-model="addAllSong"></newSongModal>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -93,6 +93,7 @@
         album: Album,
         tracks: Track,
         addNewSong: false,
+        addAllSong: false,
         choosenTrack: null,
         loading: false
       };

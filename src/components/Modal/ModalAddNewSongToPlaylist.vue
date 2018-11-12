@@ -76,7 +76,7 @@
 
 <style scoped>
   .spinner {
-    margin: 100px auto 0;
+    margin: 10px auto 0;
     width: 70px;
     text-align: center;
   }
@@ -102,6 +102,9 @@
     animation-delay: -0.16s;
   }
 
+  .modal-card-body {
+    max-width: 100%;
+  }
   @-webkit-keyframes sk-bouncedelay {
     0%, 80%, 100% { -webkit-transform: scale(0) }
     40% { -webkit-transform: scale(1.0) }
