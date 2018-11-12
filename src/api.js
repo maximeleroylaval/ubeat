@@ -16,7 +16,6 @@ export const login = () => axios.post('https://ubeat.herokuapp.com/login/',
   })
   .then((r) => {
     user.accessToken = r.data.token;
-    console.log(user.accessToken);
   })
   .catch((e) => {
     console.log(e);

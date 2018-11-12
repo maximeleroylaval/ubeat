@@ -41,7 +41,7 @@
           </div>
         </section>
         <footer class="modal-card-foot">
-          <button class="button is-success" v-on:click="createPlaylist()">Save</button>
+          <button id="btn-save" class="button is-success" v-on:click="createPlaylist()">Save</button>
           <button class="button" v-on:click="closeModal">Cancel</button>
         </footer>
       </div>
@@ -77,6 +77,8 @@
         document.getElementById('modal').classList.remove('is-active');
       },
       async createPlaylist() {
+        document.getElementById('btn-save').classList.add('is-loading');
+        document.getElementById('btn-save').setAttribute('disabled', true);
         const newPlaylist = await api.createPlaylist(this.nameNewPaylist);
         if (newPlaylist) {
           this.list.push(newPlaylist);
