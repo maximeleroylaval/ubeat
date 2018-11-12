@@ -52,7 +52,7 @@
           </div>
         </section>
         <footer class="modal-card-foot">
-          <button class="button is-success" v-on:click="updatePlaylist()">Save</button>
+          <button id="btn-save" class="button is-success" v-on:click="updatePlaylist()">Save</button>
           <button class="button" v-on:click="closeModal">Cancel</button>
         </footer>
       </div>
@@ -79,6 +79,8 @@
     },
     methods: {
       updatePlaylist() {
+        document.getElementById('btn-save').classList.add('is-loading');
+        document.getElementById('btn-save').setAttribute('disabled', true);
         api.updatePlaylist(this.idPlaylist, this.newName);
         this.namePlaylist = this.newName;
         this.newName = '';
