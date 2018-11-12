@@ -14,10 +14,10 @@
     </div>
     <div class="columns container-list">
       <div class="column" v-if="artists" v-for="item in artists">
-        <router-link v-bind:to="{ name: 'Artist', params: { id: item.artistId }}" >
+        <router-link v-bind:to="{ name: 'Artist', params: { id: item[0].artistId }}" >
           <div class="box has-text-centered">
             <!--<img v-bind:src="item.artistLinkUrl" alt="Artiste">-->
-            <p>{{ item.artistName }}</p>
+            <p>{{ item[0].artistName }}</p>
           </div>
         </router-link>
       </div>
@@ -62,15 +62,36 @@
           id: null
         },
         albums: null,
-        artists: null,
+        artists: [],
+        artist_ids: [
+          356545647,
+          116851,
+          320569549,
+          3979359,
+          94804,
+          1438665009,
+          121982,
+          2307416,
+          4527097,
+          282046174,
+          78215262,
+          458659054,
+          13493906,
+          13502164
+        ]
       };
     },
     async created() {
       // TODO: RECUPERER LISTE ARTISTES PAS EN DUR COMME CA
-      const tmpArtist = await api.getArtist('116851');
-      if (tmpArtist) {
-        this.artists = tmpArtist.results;
+      const tmpArtist = [];
+      for (let i = 0; i < this.artist_ids.length; i += 1) {
+        tmpArtist.push(api.getArtist(this.artist_ids[i]));
       }
+      const final = await Promise.all(tmpArtist);
+      for (let i = 0; i < final.length; i += 1) {
+        this.artists.push(final[i].results);
+      }
+      console.log(this.artists);
 
       // TODO: RECUPERER LISTE D'ALBUM PAS EN DUR COMME CA
       const tmpAlbum = await api.getAlbum('1125488753');
