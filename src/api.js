@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import axios from 'axios';
-import User from './models/User';
+import User from '@/models/User';
 
 export const user = new User();
 user.email = 'team-7';

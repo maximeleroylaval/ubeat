@@ -30,14 +30,7 @@
           </tr>
           </thead>
           <tbody>
-          <tr v-for="(item, index) in tracks">
-            <td>{{index + 1}}</td>
-            <td class="add"><a v-on:click="addNewSong = true" title="Add this song to a playlist"><i class="fas fa-plus"></i></a></td>
-            <td class="play"><a title="Play this song"><i class="fas fa-play-circle"></i></a></td>
-            <td>{{item.trackName }}</td>
-            <td>{{ getDuration(item.trackTimeMillis) }}</td>
-            <newSongModal v-if="addNewSong" v-bind:track="item" v-model="addNewSong"></newSongModal>
-          </tr>
+          <song v-for="(item, index) in tracks" :key="index" v-bind:song="item" v-bind:index="index"/>
           </tbody>
         </table>
 
@@ -51,14 +44,14 @@
   import * as Album from '@/models/Album';
   import * as Track from '@/models/Track';
   import * as api from '@/api';
-  import newSongModal from './ModalAddNewSongToPlaylist';
+  import song from '@/components/Song';
 
   export default {
     name: 'Album',
     props: {
     },
     components: {
-      newSongModal
+      song
     },
     methods: {
       msToTime(s) {
@@ -73,7 +66,6 @@
         if (secs < 10) {
           secs = `0${secs}`;
         }
-
         return `${mins}:${secs}`;
       },
       getReleaseDate() {
@@ -86,9 +78,6 @@
           total += this.tracks[i].trackTimeMillis;
         }
         return this.msToTime(total);
-      },
-      getDuration(s) {
-        return this.msToTime(s);
       }
     },
     data() {
@@ -96,7 +85,6 @@
         id: this.$route.params.id,
         album: Album,
         tracks: Track,
-        addNewSong: false,
         choosenTrack: null
       };
     },
@@ -110,7 +98,7 @@
   };
 </script>
 
-<style>
+<style scoped>
   #Album {
     padding-top: 40px;
   }
@@ -127,20 +115,5 @@
   }
   .headline .title.is-1 {
     margin-bottom: 0;
-  }
-
-  .add a {
-    color: black;
-  }
-  #playlist tr td:nth-child(1),
-  .play, .add{
-    max-width: 16px;
-  }
-
-  @media screen and (max-width: 1024px) {
-    #playlist tr td:nth-child(1),
-    .play, .add{
-      max-width: 25px;
-    }
   }
 </style>
