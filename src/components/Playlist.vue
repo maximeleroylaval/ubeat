@@ -9,6 +9,8 @@
     <table id="playlists" class="table is-narrow is-hoverable is-fullwidth">
       <thead>
       <tr>
+        <th>#</th>
+        <th></th>
         <th>Name</th>
         <th>Artist</th>
         <th>Album</th>
@@ -16,7 +18,9 @@
       </tr>
       </thead>
       <tbody>
-      <tr v-for="item in tracks">
+      <tr v-for="(item, index) in tracks">
+        <td>{{ index + 1 }}</td>
+        <td class="play"><a title="Play this song"><i class="fas fa-play-circle"></i></a></td>
         <td>{{ item.trackName }}</td>
         <td>{{ item.artistName }}</td>
         <td>{{ item.collectionName }}</td>
@@ -25,10 +29,6 @@
         </td>
       </tr>
       </tbody>
-      <!--<a class="button" v-on:click="addNewSong = true">Add song&nbsp;<i class="fas fa-plus"></i></a>
-      <div v-if="addNewSong">
-        <newSongModal v-bind:idPlaylist="idPlaylist" v-model="addNewSong"></newSongModal>
-      </div>-->
     </table>
 
 
