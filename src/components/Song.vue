@@ -5,13 +5,10 @@
         <td class="play"><a v-on:click="playPreview()" title="Play this song"><i class="fas fa-play-circle"></i></a></td>
         <td>{{ this.song.trackName }}</td>
         <td>{{ getDuration() }}</td>
-        <newSongModal v-if="addNewSong" v-bind:track="this.song" v-model="addNewSong"></newSongModal>
     </tr>
 </template>
 
 <script>
-    import newSongModal from '@/components/ModalAddNewSongToPlaylist';
-
     export default {
       name: 'Song',
       props: {
@@ -19,7 +16,6 @@
         index: 0
       },
       components: {
-        newSongModal
       },
       methods: {
         msToTime(s) {

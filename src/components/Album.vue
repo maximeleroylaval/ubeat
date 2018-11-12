@@ -16,9 +16,12 @@
         </div>
       </div>
     </div>
+    <div class="has-text-centered" v-if="!loading" >
+      <div class="lds-dual-ring"></div>
+    </div>
+    <div v-if="loading" >
     <div class="columns">
       <div class="column">
-
         <table id="playlist" class="table is-narrow is-hoverable is-fullwidth">
           <thead>
           <tr>
@@ -33,25 +36,29 @@
           <song v-for="(item, index) in tracks" :key="index" v-bind:song="item" v-bind:index="index"/>
           </tbody>
         </table>
-
+        <a class="button" v-on:click="addAllSong = true">Add full album in playlist&nbsp;<i class="fas fa-plus"></i></a>
+        <newSongModal v-if="addNewSong" v-bind:track="choosenTrack" v-model="addNewSong"></newSongModal>
+        <newSongModal v-if="addAllSong" v-bind:track="tracks" v-model="addAllSong"></newSongModal>
       </div>
+    </div>
     </div>
   </div>
 </template>
-
 
 <script>
   import * as Album from '@/models/Album';
   import * as Track from '@/models/Track';
   import * as api from '@/api';
   import song from '@/components/Song';
+  import newSongModal from '@/components/Modal/ModalAddNewSongToPlaylist';
 
   export default {
     name: 'Album',
     props: {
     },
     components: {
-      song
+      song,
+      newSongModal
     },
     methods: {
       msToTime(s) {
@@ -85,7 +92,9 @@
         id: this.$route.params.id,
         album: Album,
         tracks: Track,
-        choosenTrack: null
+        addNewSong: false,
+        choosenTrack: null,
+        loading: false
       };
     },
     async created() {
@@ -94,6 +103,7 @@
 
       const tmpTracks = await api.getTracksFromAlbum(this.id);
       this.tracks = tmpTracks.results;
+      this.loading = true;
     },
   };
 </script>

@@ -2,10 +2,12 @@
 import axios from 'axios';
 import User from '@/models/User';
 
+
 export const user = new User();
 user.email = 'team-7';
 user.password = 'team-7';
 user.accessToken = '';
+
 
 export const login = () => axios.post('https://ubeat.herokuapp.com/login/',
   {
@@ -14,6 +16,7 @@ export const login = () => axios.post('https://ubeat.herokuapp.com/login/',
   })
   .then((r) => {
     user.accessToken = r.data.token;
+    console.log(user.accessToken);
   })
   .catch((e) => {
     console.log(e);
@@ -55,10 +58,8 @@ export const updatePlaylist = (id, name) =>
 
 
 export const addSongToPlaylist = (id, track) =>
-  axios.post(`https://ubeat.herokuapp.com/playlists/${id}/tracks?access_token=${user.accessToken}`, {
-    headers: { 'Content-Type': 'application/json' },
-    track
-  })
+  axios.post(`https://ubeat.herokuapp.com/playlists/${id}/tracks?access_token=${user.accessToken}`,
+    track)
     .then(response => response.data)
     .catch((e) => {
       console.log(e.message);
