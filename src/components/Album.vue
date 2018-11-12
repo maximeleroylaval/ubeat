@@ -16,6 +16,10 @@
         </div>
       </div>
     </div>
+    <div class="has-text-centered" v-if="!loading" >
+      <div class="lds-dual-ring"></div>
+    </div>
+    <div v-if="loading" >
     <div class="columns">
       <div class="column">
 
@@ -42,6 +46,7 @@
         </table>
 
       </div>
+    </div>
     </div>
   </div>
 </template>
@@ -97,7 +102,8 @@
         album: Album,
         tracks: Track,
         addNewSong: false,
-        choosenTrack: null
+        choosenTrack: null,
+        loading: false
       };
     },
     async created() {
@@ -106,6 +112,7 @@
 
       const tmpTracks = await api.getTracksFromAlbum(this.id);
       this.tracks = tmpTracks.results;
+      this.loading = true;
     },
   };
 </script>

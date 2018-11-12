@@ -1,37 +1,41 @@
 
 
 <template>
-  <div id="Album" class="container">
-    <div class="columns">
-      <div class="column is-one-third jaq has-text-centered">
-        <img src="" alt="Jaquette d'album">
+    <div id="Album" class="container">
+      <div class="center" v-if="!albums">
+        <div class="lds-dual-ring"></div>
       </div>
-      {{ artist.artistId }}
-      <div class="column has-vertically-aligned-content left">
-        <p class="title is-2">{{ artist.artistName }} - {{ artist.primaryGenreName }}</p>
+      <div v-if="albums">
+      <div class="columns">
+        <div class="column is-one-third jaq has-text-centered">
+          <!--<img src="" alt="Jaquette d'album">-->
+        </div>
+        <div class="column has-vertically-aligned-content left">
+          <p class="title is-2">{{ artist.artistName }} - {{ artist.primaryGenreName }}</p>
 
-        <p v-if="nbAlbum > 1" class="subtitle is-4">{{ nbAlbum }} Albums</p>
-        <p v-else class="subtitle is-4">{{ nbAlbum }} Album</p>
+          <p v-if="nbAlbum > 1" class="subtitle is-4">{{ nbAlbum }} Albums</p>
+          <p v-else class="subtitle is-4">{{ nbAlbum }} Album</p>
 
-        <div class="extern-buy">
-          <a v-bind:href="artist.artistLinkUrl" target="_blank">
-            <img src="@/assets/img/itunes_logo.png">
-          </a>
+          <div class="extern-buy">
+            <a v-bind:href="artist.artistLinkUrl" target="_blank">
+              <img src="@/assets/img/itunes_logo.png">
+            </a>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="container-list">
-      <div class="box-album" v-if="albums" v-for="item in albums">
-        <router-link v-bind:to="{ name: 'Album', params: { id: item.collectionId }}" >
-          <div class="box has-text-centered">
-            <i class="far fa-play-circle fa-4x play"></i>
-            <img v-bind:src="item.artworkUrl100" alt="Jaquette d'album">
-            <p>{{ item.collectionName }}</p>
-          </div>
-        </router-link>
+      <div class="container-list">
+        <div class="box-album" v-if="albums" v-for="item in albums">
+          <router-link v-bind:to="{ name: 'Album', params: { id: item.collectionId }}" >
+            <div class="box has-text-centered">
+              <i class="far fa-play-circle fa-4x play"></i>
+              <img v-bind:src="item.artworkUrl100" alt="Jaquette d'album">
+              <p>{{ item.collectionName }}</p>
+            </div>
+          </router-link>
+        </div>
+      </div>
       </div>
     </div>
-  </div>
 </template>
 
 <script>
@@ -96,5 +100,11 @@
     margin: auto;
     color:black;
     display: none;
+  }
+
+  .center {
+    position:fixed;
+    top: 50%;
+    left: 50%;
   }
 </style>
