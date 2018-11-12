@@ -25,10 +25,10 @@
         </td>
       </tr>
       </tbody>
-      <a class="button" v-on:click="addNewSong = true">Add song&nbsp;<i class="fas fa-plus"></i></a>
+      <!--<a class="button" v-on:click="addNewSong = true">Add song&nbsp;<i class="fas fa-plus"></i></a>
       <div v-if="addNewSong">
         <newSongModal v-bind:idPlaylist="idPlaylist" v-model="addNewSong"></newSongModal>
-      </div>
+      </div>-->
     </table>
 
 

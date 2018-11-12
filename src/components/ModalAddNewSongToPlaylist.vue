@@ -47,8 +47,8 @@
         this.$emit('input', false);
       },
       async addSongToPlaylist(id) {
-        console.log(JSON.stringify(this.track));
-        await api.addSongToPlaylist(id, JSON.stringify(this.track));
+        console.log(this.track);
+        await api.addSongToPlaylist(id, this.track);
         this.$emit('input', false);
       }
     },
@@ -60,7 +60,9 @@
     },
     async created() {
       this.user = await api.getTokenInfo();
-      this.list = await api.getAllPlaylist();
+      if (!this.list) {
+        this.list = await api.getAllPlaylist();
+      }
     }
   };
 </script>
