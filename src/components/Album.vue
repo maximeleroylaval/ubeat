@@ -20,6 +20,7 @@
           </div>
         </div>
       </div>
+
       <div class="columns">
         <div class="column">
           <table id="playlist" class="table is-narrow is-hoverable is-fullwidth">
@@ -33,17 +34,10 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="(item, index) in tracks" :key="item.trackId">
-              <td>{{index + 1}}</td>
-              <td class="add"><a v-on:click="addNewSong = true; choosenTrack = item" title="Add this song to a playlist"><i class="fas fa-plus"></i></a></td>
-              <td class="play"><a title="Play this song"><i class="fas fa-play-circle"></i></a></td>
-              <td>{{item.trackName }}</td>
-              <td>{{ getDuration(item.trackTimeMillis) }}</td>
-            </tr>
+            <song v-for="(item, index) in tracks" :key="index" v-bind:song="item" v-bind:index="index"/>
             </tbody>
           </table>
           <a class="button" v-on:click="addAllSong = true">Add full album in playlist&nbsp;<i class="fas fa-plus"></i></a>
-          <newSongModal v-if="addNewSong" v-bind:track="choosenTrack" v-model="addNewSong"></newSongModal>
           <newSongModal v-if="addAllSong" v-bind:track="tracks" v-model="addAllSong"></newSongModal>
         </div>
       </div>
@@ -51,18 +45,19 @@
   </div>
 </template>
 
-
 <script>
   import * as Album from '@/models/Album';
   import * as Track from '@/models/Track';
   import * as api from '@/api';
-  import newSongModal from './Modal/ModalAddNewSongToPlaylist';
+  import song from '@/components/Song';
+  import newSongModal from '@/components/Modal/ModalAddNewSongToPlaylist';
 
   export default {
     name: 'Album',
     props: {
     },
     components: {
+      song,
       newSongModal
     },
     methods: {
@@ -78,7 +73,6 @@
         if (secs < 10) {
           secs = `0${secs}`;
         }
-
         return `${mins}:${secs}`;
       },
       getReleaseDate() {
@@ -91,9 +85,6 @@
           total += this.tracks[i].trackTimeMillis;
         }
         return this.msToTime(total);
-      },
-      getDuration(s) {
-        return this.msToTime(s);
       }
     },
     data() {
@@ -118,7 +109,7 @@
   };
 </script>
 
-<style>
+<style scoped>
   #Album {
     padding-top: 40px;
   }
@@ -135,20 +126,5 @@
   }
   .headline .title.is-1 {
     margin-bottom: 0;
-  }
-
-  .add a {
-    color: black;
-  }
-  #playlist tr td:nth-child(1),
-  .play, .add{
-    max-width: 16px;
-  }
-
-  @media screen and (max-width: 1024px) {
-    #playlist tr td:nth-child(1),
-    .play, .add{
-      max-width: 25px;
-    }
   }
 </style>
