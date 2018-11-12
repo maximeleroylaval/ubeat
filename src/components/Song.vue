@@ -1,27 +1,14 @@
 <template>
-<<<<<<< HEAD
     <tr>
         <td>{{ this.index + 1 }}</td>
         <td class="add"><a v-on:click="addToPlaylist()" title="Add this song to a playlist"><i class="fas fa-plus"></i></a></td>
-        <td class="play"><a v-on:click="playPreview()" title="Play this song"><i class="fas fa-play-circle"></i></a></td>
+        <td v-bind:id="'play' + this.song.trackId" class="play"><a v-on:click="playPreview('play' + this.song.trackId)" title="Play this song"><i class="fas fa-play-circle"></i></a></td>
         <td>{{ this.song.trackName }}</td>
         <td>{{ getDuration() }}</td>
     </tr>
-=======
-  <tr>
-    <td>{{ this.index + 1 }}</td>
-    <td class="add"><a v-on:click="addNewSong = true" title="Add this song to a playlist"><i class="fas fa-plus"></i></a></td>
-    <td class="play"><a v-on:click="playPreview()" title="Play this song"><i class="fas fa-play-circle"></i></a></td>
-    <td>{{ this.song.trackName }}</td>
-    <td>{{ getDuration() }}</td>
-
-    <newSongModal v-if="addNewSong" v-bind:track="song" v-model="addNewSong"></newSongModal>
-  </tr>
->>>>>>> ba8c997d67ab83b5bab7614cf06b23bdddc4b469
 </template>
 
 <script>
-
   import newSongModal from './Modal/ModalAddNewSongToPlaylist';
 
   export default {
@@ -51,11 +38,12 @@
       getDuration() {
         return this.msToTime(this.song.trackTimeMillis);
       },
-      playPreview() {
+      playPreview(event) {
         if (this.audioPreview == null) {
-        this.audioPreview = new Audio(this.song.previewUrl);
+          this.audioPreview = new Audio(this.song.previewUrl);
         }
         this.audioPreview.play();
+        console.log(event);
       },
       addToPlaylist() {
         this.$emit('addNewSong', true);

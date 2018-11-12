@@ -34,7 +34,7 @@
             </tr>
             </thead>
             <tbody>
-            <song v-for="(item, index) in tracks" :key="index" v-bind:song="item" v-bind:index="index"/>
+            <song v-for="(item, index) in tracks" :key="item.trackId" v-bind:song="item" v-bind:index="index"/>
             </tbody>
           </table>
           <a class="button" v-on:click="addAllSong = true">Add full album in playlist&nbsp;<i class="fas fa-plus"></i></a>
