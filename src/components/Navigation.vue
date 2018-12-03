@@ -40,8 +40,15 @@
               <div class="control">
                 <input class="input" v-model="input" type="text" placeholder="Search">
               </div>
-              <div v-if='input !== null' class="control">
-                <router-link v-bind:to="{ name: 'Search', params: { type:'global', query : {value:input}  }}" >
+              <div class="control">
+                <select v-model="selected">
+                  <option value="global">All</option>
+                  <option value="artists/">Artist</option>
+                  <option value="albums/">Album</option>
+                  <option value="tracks/">Track</option>
+                  <option value="users/">User</option>
+                </select>
+                <router-link v-bind:to="{ name: 'Search', params: { type:selected }, query : {q:input}}" >
                   <i class="fas fa-search"></i>
                 </router-link>
               </div>
@@ -60,7 +67,8 @@
     },
     data() {
       return {
-        input: null
+        input: '',
+        selected: 'global'
       };
     },
     components: {

@@ -85,8 +85,8 @@ export const getArtist = id =>
       console.log(e.message);
     });
 
-export const searchGlobal = query =>
-  axios.get(`https://ubeat.herokuapp.com/search?q=${query}&access_token=${user.accessToken}`)
+export const searchGlobal = (type, query) =>
+  axios.get(`https://ubeat.herokuapp.com/search/${type}?q=${query}&limit=50&access_token=${user.accessToken}`)
     .then(response => response.data)
     .catch((e) => {
       console.log(e.message);
