@@ -38,12 +38,12 @@
           <div class="navbar-item">
             <div class="field has-addons">
               <div class="control">
-                <input class="input" type="text" placeholder="Search">
+                <input class="input" v-model="input" type="text" placeholder="Search">
               </div>
-              <div class="control">
-                <a class="button is-dark">
+              <div v-if='input !== null' class="control">
+                <router-link v-bind:to="{ name: 'Search', params: { type:'global', query : {value:input}  }}" >
                   <i class="fas fa-search"></i>
-                </a>
+                </router-link>
               </div>
             </div>
           </div>
@@ -56,7 +56,12 @@
   export default {
     name: 'Navigation',
     props: {
-      user: null
+      user: null,
+    },
+    data() {
+      return {
+        input: null
+      };
     },
     components: {
     }

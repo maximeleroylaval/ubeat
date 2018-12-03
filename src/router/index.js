@@ -5,6 +5,7 @@ import Album from '@/components/Album';
 import Artist from '@/components/Artist';
 import Playlists from '@/components/Playlists';
 import Playlist from '@/components/Playlist';
+import Search from '@/components/Search';
 
 Vue.use(Router);
 
@@ -32,6 +33,11 @@ export default new Router({
       path: '/playlists/:id',
       name: 'Playlist',
       component: Playlist,
+      props: true
+    }, {
+      path: '/search/:type',
+      name: 'Search',
+      component: Search,
       props: true
     }
   ],
