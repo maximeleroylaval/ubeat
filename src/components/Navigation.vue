@@ -19,21 +19,19 @@
           <div class="navbar-item has-dropdown is-hoverable" id="dropdown-user" v-if="user">
             <a class="navbar-link is-hidden-touch">
               <i class="fas fa-user-circle fa-2x"></i>
+              {{ user.name }}
             </a>
             <div class="navbar-dropdown">
               <div class="navbar-item">
                 <i class="fas fa-user-circle fa-2x is-hidden-desktop"></i>
-
                 <router-link v-bind:to="{ name: 'User', params: { id: user.id }}" >
                   <span >{{ user.email }}</span>
                 </router-link>
-
-
               </div>
               <hr class="dropdown-divider">
-              <a class="navbar-item">
+              <router-link class="navbar-item" v-bind:to="{ name: 'User', params: { id: user.id }}" >
                 Profil
-              </a>
+              </router-link>
               <a class="navbar-item">
                 Log out
               </a>
@@ -42,12 +40,19 @@
           <div class="navbar-item">
             <div class="field has-addons">
               <div class="control">
-                <input class="input" type="text" placeholder="Search">
+                <input class="input" v-model="input" type="text" placeholder="Search">
               </div>
               <div class="control">
-                <a class="button is-dark">
+                <select v-model="selected">
+                  <option value="global">All</option>
+                  <option value="artists/">Artist</option>
+                  <option value="albums/">Album</option>
+                  <option value="tracks/">Track</option>
+                  <option value="users/">User</option>
+                </select>
+                <router-link v-bind:to="{ name: 'Search', params: { type:selected }, query : {q:input}}" >
                   <i class="fas fa-search"></i>
-                </a>
+                </router-link>
               </div>
             </div>
           </div>
@@ -60,7 +65,13 @@
   export default {
     name: 'Navigation',
     props: {
-      user: null
+      user: null,
+    },
+    data() {
+      return {
+        input: '',
+        selected: 'global'
+      };
     },
     components: {
     }

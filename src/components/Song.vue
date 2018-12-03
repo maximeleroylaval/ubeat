@@ -6,7 +6,7 @@
         <td>{{ this.song.trackName }}</td>
         <td v-if="!this.playlist">{{ getDuration() }}</td>
 
-        <td v-if="this.playlist">{{ this.song.artistName }}</td>
+        <td v-if="this.playlist || this.songsearch">{{ this.song.artistName }}</td>
         <td v-if="this.playlist">{{ this.song.collectionName }}</td>
         <td v-if="this.playlist">
           <a class="button" v-on:click="deleteFromMyPlaylist()"><i class="fas fa-trash-alt"></i></a>
@@ -25,6 +25,7 @@
       song: null,
       index: 0,
       playlist: false,
+      songsearch: false,
       deleteFromPlaylist: Function
     },
     components: {

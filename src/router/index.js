@@ -6,6 +6,7 @@ import Artist from '@/components/Artist';
 import Playlists from '@/components/Playlists';
 import Playlist from '@/components/Playlist';
 import User from '@/components/User';
+import Search from '@/components/Search';
 
 Vue.use(Router);
 
@@ -38,6 +39,12 @@ export default new Router({
       path: '/user/:id',
       name: 'User',
       component: User,
+      props: true
+    },
+    {
+      path: '/search/:type',
+      name: 'Search',
+      component: Search,
       props: true
     }
   ]
