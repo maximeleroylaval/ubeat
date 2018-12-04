@@ -23,9 +23,7 @@
             <div class="navbar-dropdown">
               <div class="navbar-item">
                 <i class="fas fa-user-circle fa-2x is-hidden-desktop"></i>
-                <router-link v-bind:to="{ name: 'User', params: { id: user.id }}" >
-                  <span >{{ user.email }}</span>
-                </router-link>
+                {{ user.email }}
               </div>
               <hr class="dropdown-divider">
               <router-link class="navbar-item" v-bind:to="{ name: 'User', params: { id: user.id }}" >

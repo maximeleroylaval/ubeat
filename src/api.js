@@ -96,9 +96,11 @@ export const followUser = (idUser, callback) =>
       console.log(e.message);
     });
 
-export const unfollowUser = id =>
-  axios.delete(`https://ubeat.herokuapp.com/follow?id=${id}&access_token=${user.accessToken}`)
-    .then(response => response.data)
+export const unfollowUser = (id, callback) =>
+  axios.delete(`https://ubeat.herokuapp.com/follow/${id}?access_token=${user.accessToken}`)
+    .then((response) => {
+      callback(response.data);
+    })
     .catch((e) => {
       console.log(e.message);
     });

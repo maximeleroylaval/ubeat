@@ -1,29 +1,23 @@
 <template>
   <div>
     <h4 class="title is-2">User</h4>
-    <div v-if="!user">
-      <div class="spinner">
-        <div class="bounce1"></div>
-        <div class="bounce2"></div>
-        <div class="bounce3"></div>
-      </div>
-    </div>
-    <div class="headline" v-else>
-      <p class="title is-5">{{ user.name }}</p>
-      <p class="title is-6">{{ user.email }}</p>
+    <div class="headline" v-if="user">
+      <p class="title is-5">{{ user.name }}
 
-      <div v-if="registeredUser && user.id !== registeredUser.id">
-        <a v-on:click="unfollowUser" class="button" v-if="isFriend">
+        <a v-if="loading">
+        </a>
+        <a v-on:click="unfollowUser(user.id)" id="btn-ami" class="button" v-else-if="isFriend">
           Unfollow this user
         </a>
-        <a v-on:click="followUser" class="button" v-else>
+        <a v-on:click="followUser" class="button" id="btn-ami" v-else>
           Follow this user
         </a>
-      </div>
+
+      </p>
+      <p class="title is-6">{{ user.email }}</p>
 
 
     </div>
-
     <h4 class="title is-2">Playlist</h4>
     <div v-if="!list">
       <div class="spinner">
@@ -32,7 +26,7 @@
         <div class="bounce3"></div>
       </div>
     </div>
-    <div v-else-if="list.size === 0">
+    <div v-else-if="list.length === 0">
       This user has no Playlist
     </div>
     <table v-else id="playlists" class="table is-narrow is-hoverable is-fullwidth">
@@ -44,7 +38,7 @@
       </thead>
       <tbody>
       <tr v-for="item in list" :key="item.id">
-        <router-link v-bind:to="{ name: 'Playlist', params: { id: item.id }}"  >
+        <router-link v-bind:to="{ name: 'Playlist', params: { id: item.id }}" :key="item.id">
           <td>{{ item.name }}</td>
         </router-link>
         <td>{{ item.tracks.length }}</td>
@@ -59,9 +53,14 @@
         <div class="bounce3"></div>
       </div>
     </div>
+    <div v-else-if="friends.length === 0">
+      This user has no friend
+    </div>
     <ul v-else>
       <li v-for="item in friends">
-        {{ item.name }}
+        <router-link v-bind:to="{ name: 'User', params: { id: item.id }}" >
+          <span >{{ item.name }}</span>
+        </router-link>
       </li>
     </ul>
   </div>
@@ -69,6 +68,8 @@
 </template>
 
 <script>
+  /* eslint-disable no-trailing-spaces,spaced-comment */
+
   import * as api from '@/api';
   import * as User from '@/models/User';
 
@@ -83,20 +84,42 @@
         list: null,
         friends: null,
         registeredUser: User,
-        isFriends: null
+        isFriend: null,
+        loading: true
       };
+    },
+    beforeRouteUpdate(to, from, next) {
+      this.id = to.params.id;
+      this.init();
+      next();
     },
     methods: {
       followUser() {
-        api.followUser(this.id, () => {});
+        document.getElementById('btn-ami').classList.add('is-loading');
+        api.followUser(this.id, () => {
+          document.getElementById('btn-ami').classList.remove('is-loading');
+          this.isFriend = true;
+        });
+      },
+      unfollowUser(id) {
+        document.getElementById('btn-ami').classList.add('is-loading');
+        api.unfollowUser(id, () => {
+          document.getElementById('btn-ami').classList.remove('is-loading');
+          this.isFriend = false;
+        });
       },
       hasFriends() {
+        let check = false;
         for (let i = 0; i < this.registeredUser.following.length; i += 1) {
-          for (let j = 0; j < this.user.following.length; j += 1) {
-            if (this.registeredUser.following[i].id === this.user.following[j].id) {
-              this.isFriend = true;
-            }
+          if (this.registeredUser.following[i].id === this.user.id) {
+            this.loading = false;
+            check = true;
+            this.isFriend = true;
           }
+        }
+        if (!check) {
+          this.loading = false;
+          this.isFriend = false;
         }
       },
       filteredPlaylistsOwner() {
@@ -105,19 +128,31 @@
       filteredPlaylistsId() {
         return this.list.filter(entry => entry.owner.id === this.id);
       },
+      async init() {
+        this.loading = true;
+        this.isFriend = false;
+        this.user = null;
+        this.list = null;
+        this.friends = null;
+        this.registeredUser = null;
+
+        this.user = await api.getUser(this.id);
+        this.friends = this.user.following;
+
+        this.list = await api.getAllPlaylist();
+        this.list = this.filteredPlaylistsOwner();
+        this.list = this.filteredPlaylistsId();
+
+        const tmpUser = await api.getTokenInfo();
+        this.registeredUser = await api.getUser(tmpUser.id);
+
+        if (this.registeredUser.id !== this.user.id) {
+          this.hasFriends();
+        }
+      }
     },
     async created() {
-      this.isFriend = false;
-      this.user = await api.getUser(this.id);
-      this.friends = this.user.following;
-      this.list = await api.getAllPlaylist();
-      this.list = this.filteredPlaylistsOwner();
-      this.list = this.filteredPlaylistsId();
-      const tmpUser = await api.getTokenInfo();
-      this.registeredUser = await api.getUser(tmpUser.id);
-      if (this.registeredUser.id !== this.user.id) {
-        this.hasFriends();
-      }
+      this.init();
     }
   };
 </script>
