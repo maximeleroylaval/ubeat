@@ -40,7 +40,7 @@
         <div class="navbar-item">
           <div class="field has-addons">
             <div class="control search">
-              <input class="input "v-on:keyup="keymonitor" v-model="input" type="text" placeholder="Search" @keyup.enter="push">
+              <input class="input custom" v-on:keyup="keymonitor" v-model="input" type="text" placeholder="Search" @keyup.enter="push">
               <div class="instant-results">
                 <ul class="list-unstyled result-bucket" id="match">
                   <li class="result-entry"  v-for="item in this.data">
@@ -51,17 +51,17 @@
                 </ul>
               </div>
             </div>
+            <select class="classic" v-model="selected" v-on:change="clear">
+              <option value="global">All</option>
+              <option value="artists/">Artist</option>
+              <option value="albums/">Album</option>
+              <option value="tracks/">Track</option>
+              <option value="users/">User</option>
+            </select>
             <div class="control">
               <router-link v-bind:to="{ name: 'Search', params: { type:selected }, query : {q:input}}">
-                <button ref="search" class="button"><i class="fas fa-search"></i></button>
+                <button ref="search" class="button custom"><i class="fas fa-search"></i></button>
               </router-link>
-              <select v-model="selected" v-on:change="clear">
-                <option value="global">All</option>
-                <option value="artists/">Artist</option>
-                <option value="albums/">Album</option>
-                <option value="tracks/">Track</option>
-                <option value="users/">User</option>
-              </select>
             </div>
           </div>
         </div>
@@ -206,7 +206,6 @@
     position: absolute;
     top: 100%;
     left: 0;
-    border: 1px solid rgba(0, 0, 0, .15);
     border-radius: 4px;
     -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, .175);
     box-shadow: 0 2px 4px rgba(0, 0, 0, .175);
@@ -216,5 +215,52 @@
   .result-bucket li {
     padding: 7px 15px;
   }
+  select.classic {
+  }
+  select.classic {
+
+    /* styling */
+    border-radius: 0;
+    border: 0;
+    background-color: white;
+    display: inline-block;
+    font: inherit;
+    padding: 0.2em 2.2em 0.2em 0.5em;
+
+    /* reset */
+
+    margin: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+  }
+
+
+  /* arrows */
+
+  select.classic {
+    background-image:
+      linear-gradient(45deg, transparent 50%, #000000 50%),
+      linear-gradient(135deg, #000000 50%, transparent 50%),
+      linear-gradient(to right, #cecece, #cecece);
+    background-position: calc(100% - 15px) calc(1em + -1px), calc(100% - 10px) calc(1em + -1px), 100% 0;
+    background-size: 5px 5px, 5px 5px, 1.9em 2.5em;
+    background-repeat: no-repeat;
+  }
+
+  .input.custom {
+    border-radius: 0;
+    border: 0;
+    border-right: gray;
+    box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.1);
+  }
+
+  .button.custom {
+    border-radius: 0;
+    border: 0;
+  }
+
 
 </style>
