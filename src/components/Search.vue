@@ -55,9 +55,10 @@
         <div class="container-list">
           <div class="container-list">
             <div class="box-artist" v-for="item in search">
-                <div class="box has-text-centered">
-                  <p>Email : {{ item.email }}</p>
-                  <p>Id : {{ item.id }}</p>
+                <div class="box">
+                  <router-link v-bind:to="{ name: 'User', params: { id: item.id }}" >
+                    {{ item.name }}
+                  </router-link>
                 </div>
             </div>
           </div>

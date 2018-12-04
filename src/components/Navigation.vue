@@ -9,30 +9,32 @@
           <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
         </a>
       </div>
-    </div>
-    <div class="navbar-menu" id="navMenu">
-      <div class="navbar-start">
-        <router-link class="navbar-item" to="/">Home</router-link>
-        <router-link class="navbar-item" to="/playlists" v-bind:user="user">Playlist</router-link>
-      </div>
-      <div class="navbar-end">
-        <div class="navbar-item has-dropdown is-hoverable" id="dropdown-user" v-if="user">
-          <a class="navbar-link is-hidden-touch">
-            <i class="fas fa-user-circle fa-2x"></i>
-          </a>
-          <div class="navbar-dropdown">
-            <div class="navbar-item">
-              <i class="fas fa-user-circle fa-2x is-hidden-desktop"></i>
-              <span >{{ user.email }}</span>
+      <div class="navbar-menu" id="navMenu">
+        <div class="navbar-start">
+          <router-link class="navbar-item" to="/">Home</router-link>
+          <router-link class="navbar-item" to="/playlists" v-bind:user="user">Playlist</router-link>
+        </div>
+        <div class="navbar-end">
+          <div class="navbar-item has-dropdown is-hoverable" id="dropdown-user" v-if="user">
+            <a class="navbar-link is-hidden-touch">
+              <i class="fas fa-user-circle fa-2x"></i>
+              {{ user.name }}
+            </a>
+            <div class="navbar-dropdown">
+              <div class="navbar-item">
+                <i class="fas fa-user-circle fa-2x is-hidden-desktop"></i>
+                <router-link v-bind:to="{ name: 'User', params: { id: user.id }}" >
+                  <span >{{ user.email }}</span>
+                </router-link>
+              </div>
+              <hr class="dropdown-divider">
+              <router-link class="navbar-item" v-bind:to="{ name: 'User', params: { id: user.id }}" >
+                Profil
+              </router-link>
+              <a class="navbar-item">
+                Log out
+              </a>
             </div>
-            <hr class="dropdown-divider">
-
-            <a class="navbar-item">
-              Profil
-            </a>
-            <a class="navbar-item">
-              Log out
-            </a>
           </div>
         </div>
         <div class="navbar-item">
@@ -43,7 +45,7 @@
                 <ul class="list-unstyled result-bucket" id="match">
                   <li class="result-entry"  v-for="item in this.data">
                     <a v-on:click="insertInsideInput(item)">
-                    <h4 class="media-heading">{{item}}</h4>
+                      <h4 class="media-heading">{{item}}</h4>
                     </a>
                   </li>
                 </ul>
@@ -95,16 +97,25 @@
         this.$refs.search.click();
       },
       parseData: function parseData() {
-        const arr = [];
-        Object.entries(this.data.results).forEach((key) => {
-          if (Object.prototype.hasOwnProperty.call(key[1], 'trackName')) {
-            arr.push(key[1].trackName);
-          } else if (Object.prototype.hasOwnProperty.call(key[1], 'artistName')) {
-            arr.push(key[1].artistName);
-          } else {
-            arr.push(key[1].collectionName);
-          }
-        });
+        let arr = [];
+        if (this.type !== 'users/') {
+          Object.entries(this.data.results).forEach((key) => {
+            if (Object.prototype.hasOwnProperty.call(key[1], 'trackName')) {
+              arr.push(key[1].trackName);
+            } else if (Object.prototype.hasOwnProperty.call(key[1], 'artistName')) {
+              arr.push(key[1].artistName);
+            } else {
+              arr.push(key[1].collectionName);
+            }
+          });
+        } else {
+          Object.entries(this.data).forEach((key) => {
+            if (Object.prototype.hasOwnProperty.call(key[1], 'name')) {
+              arr.push(key[1].name);
+            }
+          });
+          arr = arr.slice(0, 10);
+        }
         return arr;
       },
       push: function submit() {

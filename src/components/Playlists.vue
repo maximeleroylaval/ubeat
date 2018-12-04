@@ -17,7 +17,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-for="item in list" v-if="item.owner && item.owner.email === user.email" :key="item.id">
+        <tr v-for="item in list">
           <router-link v-bind:to="{ name: 'Playlist', params: { id: item.id }}"  >
             <td>{{ item.name }}</td>
           </router-link>
@@ -90,7 +90,13 @@
           alert('An error occured');
         }
         this.closeModal();
-      }
+      },
+      filteredPlaylistsOwner() {
+        return this.list.filter(entry => entry.owner != null);
+      },
+      filteredPlaylistsId() {
+        return this.list.filter(entry => entry.owner.id === this.user.id);
+      },
     },
     data() {
       return {
@@ -105,6 +111,8 @@
     async created() {
       this.user = await api.getTokenInfo();
       this.list = await api.getAllPlaylist();
+      this.list = this.filteredPlaylistsOwner();
+      this.list = this.filteredPlaylistsId();
     }
   };
 </script>,
@@ -162,3 +170,5 @@
   }
 
 </style>
+
+
