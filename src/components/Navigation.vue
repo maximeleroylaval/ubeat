@@ -89,7 +89,9 @@
     },
     methods: {
       keymonitor: function key() {
-        this.getData();
+        setTimeout(() => {
+          this.getData();
+        }, 500);
       },
       insertInsideInput: function insertInsideInput(element) {
         this.input = element;
