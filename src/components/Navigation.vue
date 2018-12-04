@@ -134,7 +134,6 @@
         } else {
           this.type = this.selected;
         }
-        console.log(this.input);
         if (this.input.length > 2) {
           this.data = await api.searchGlobalLimit(this.type, this.input);
           this.data = this.parseData();
