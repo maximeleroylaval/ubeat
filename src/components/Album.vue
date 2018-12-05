@@ -10,7 +10,7 @@
     <div v-else>
       <div class="columns is-centered header">
         <div class="column is-one-third jaq">
-          <img v-bind:src="album.artworkUrl100" alt="Jaquette d'album">
+          <img v-bind:src="getAlbumPictureBySize('300x0w')" alt="Jaquette d'album">
         </div>
         <div class="column has-vertically-aligned-content left headline">
           <p class="title is-1">{{ album.collectionName }}</p>
@@ -92,6 +92,9 @@
       },
       getAlbumLink() {
         return this.album.collectionViewUrl;
+      },
+      getAlbumPictureBySize(size) {
+        return this.album.artworkUrl100.replace('100x100bb', size);
       }
     },
     data() {

@@ -152,3 +152,14 @@ export const deleteSongFromPlaylist = (id, idTrack) =>
     .catch((e) => {
       console.log(e.message);
     });
+export const scrapArtistPicture = (url, size) =>
+  axios.get(url)
+  .then((html) => {
+    const doc = new DOMParser().parseFromString(html.data, 'text/html');
+    const x = doc.querySelector('meta[property="og:image"]').getAttribute('content');
+    const image = x.substring(0, x.lastIndexOf('/') + 1);
+    return `${image}${size}.jpg`;
+  })
+  /* eslint-disable */
+  .catch((e) => 'https://static.thenounproject.com/png/630729-200.png');
+  /* eslint-enable */

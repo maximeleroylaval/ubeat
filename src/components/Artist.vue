@@ -12,7 +12,7 @@
       <div v-if="albums">
       <div class="columns">
         <div class="column is-one-third jaq has-text-centered">
-          <!--<img src="" alt="Jaquette d'album">-->
+          <img v-bind:src="artist.artworkArtistUrl300" alt="Photo de l'artiste">
         </div>
         <div class="column has-vertically-aligned-content left">
           <p class="title is-2">{{ artist.artistName }} - {{ artist.primaryGenreName }}</p>
@@ -32,7 +32,7 @@
           <router-link v-bind:to="{ name: 'Album', params: { id: item.collectionId }}" >
             <div class="box has-text-centered">
               <i class="far fa-play-circle fa-4x play"></i>
-              <img v-bind:src="item.artworkUrl100" alt="Jaquette d'album">
+              <img v-bind:src="item.artworkUrl100.replace('100x100bb', '300x0w')" alt="Jaquette d'album">
               <p>{{ item.collectionName }}</p>
             </div>
           </router-link>
@@ -58,10 +58,18 @@
         nbAlbum: 0
       };
     },
+    methods: {
+      async addArtistPicture(artist) {
+        const myartist = JSON.parse(JSON.stringify(artist));
+        myartist.artworkArtistUrl300 = await api.scrapArtistPicture(myartist.artistLinkUrl, '300x0w');
+        return myartist;
+      },
+    },
     async created() {
       const tmpArtist = await api.getArtist(this.id);
+      const endArtist = await this.addArtistPicture(tmpArtist.results[0]);
       const tmp = await api.getAlbumsFromArtist(this.id);
-      this.artist = tmpArtist.results[0];
+      this.artist = endArtist;
       this.nbAlbum = tmp.resultCount;
       this.albums = tmp.results;
     }

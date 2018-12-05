@@ -22,10 +22,10 @@
     <div v-if="loading_artist">
       <div class="container-list">
         <div class="box-artist" v-if="artists" v-for="item in artists">
-          <router-link v-bind:to="{ name: 'Artist', params: { id: item[0].artistId }}" >
+          <router-link v-bind:to="{ name: 'Artist', params: { id: item.artistId }}" >
             <div class="box has-text-centered">
-              <!--<img v-bind:src="item.artistLinkUrl" alt="Artiste">-->
-              <p>{{ item[0].artistName }}</p>
+              <img v-bind:src="item.artworkArtistUrl300" alt="Photo de l'artiste">
+              <p>{{ item.artistName }}</p>
             </div>
           </router-link>
         </div>
@@ -49,7 +49,7 @@
         <div class="box-album" v-if="albums" v-for="item in albums">
           <router-link v-bind:to="{ name: 'Album', params: { id: item[0].collectionId }}" >
             <div class="box has-text-centered">
-              <img v-bind:src="item[0].artworkUrl100" alt="Jaquette d'album">
+              <img v-bind:src="item[0].artworkUrl100.replace('100x100bb', '300x0w')" alt="Jaquette d'album">
               <p>{{ item[0].collectionName }}</p>
             </div>
           </router-link>
@@ -69,7 +69,18 @@
       access_token: String,
     },
     methods: {
-
+      async addArtistPicture(artist) {
+        const myartist = JSON.parse(JSON.stringify(artist));
+        myartist.artworkArtistUrl300 = await api.scrapArtistPicture(myartist.artistLinkUrl, '300x0w');
+        return myartist;
+      },
+      async addArtistPictures(results) {
+        const promises = [];
+        for (let i = 0; i < results.length; i += 1) {
+          promises.push(this.addArtistPicture(results[i].results[0]));
+        }
+        return Promise.all(promises);
+      },
     },
     data() {
       return {
@@ -124,9 +135,10 @@
         tmpArtist.push(api.getArtist(this.artist_ids[i]));
       }
       const final = await Promise.all(tmpArtist);
+      const endFinal = await this.addArtistPictures(final);
       this.artists = [];
-      for (let i = 0; i < final.length; i += 1) {
-        this.artists.push(final[i].results);
+      for (let i = 0; i < endFinal.length; i += 1) {
+        this.artists.push(endFinal[i]);
       }
       this.loading_artist = true;
       const tmpAlbum = [];

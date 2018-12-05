@@ -16,10 +16,10 @@
         </div>
       </div>
       <div class="container-list">
-        <div class="box-album" v-for="item in search.results"  v-if="item.wrapperType === 'collection' ">
+        <div class="box-album" v-for="item in search"  v-if="item.wrapperType === 'collection' ">
           <router-link v-bind:to="{ name: 'Album', params: { id: item.collectionId }}" >
             <div class="box has-text-centered">
-              <img v-bind:src="item.artworkUrl100" alt="Jaquette d'album">
+              <img v-bind:src="item.artworkUrl100.replace('100x100bb', '300x0w')" alt="Jaquette d'album">
               <p>{{ item.collectionName }}</p>
             </div>
           </router-link>
@@ -35,9 +35,10 @@
       </div>
       <div class="container-list">
         <div class="container-list">
-          <div class="box-artist" v-for="item in search.results"  v-if="item.wrapperType === 'artist' ">
+          <div class="box-artist" v-for="item in search"  v-if="item.wrapperType === 'artist' ">
             <router-link v-bind:to="{ name: 'Artist', params: { id: item.artistId }}" >
               <div class="box has-text-centered">
+                <img v-bind:src="item.artworkArtistUrl300" alt="Photo de l'artiste">
                 <p>{{ item.artistName }}</p>
               </div>
             </router-link>
@@ -83,7 +84,8 @@
         </tr>
         </thead>
         <tbody>
-        <song v-for="(item, index) in search.results"  v-if="item.wrapperType === 'track' " :key="item.trackId" v-bind:songsearch="true" v-bind:song="item" v-bind:index="index"/>
+        <song v-for="(item, index) in search"  v-if="item.wrapperType === 'track'" :key="item.trackId"
+          v-bind:songsearch="true" v-bind:song="item" v-bind:index="index"/>
         </tbody>
       </table>
       </div>
@@ -111,15 +113,31 @@
       };
     },
     methods: {
+      async addArtistPicture(artist) {
+        const myartist = JSON.parse(JSON.stringify(artist));
+        myartist.artworkArtistUrl300 = await api.scrapArtistPicture(myartist.artistLinkUrl, '300x0w');
+        return myartist;
+      },
+      async addArtistPictures(results) {
+        const promises = [];
+        for (let i = 0; i < results.length; i += 1) {
+          if (results[i].wrapperType === 'artist') {
+            promises.push(this.addArtistPicture(results[i]));
+          } else {
+            promises.push(results[i]);
+          }
+        }
+        return Promise.all(promises);
+      },
       async getData() {
         this.loading = false;
-        let tmpSearch = [];
         if (this.type === 'global') {
           this.type = '';
         }
-        tmpSearch = await api.searchGlobal(this.type, this.query);
+        const tmpSearch = await api.searchGlobal(this.type, this.query);
+        const endSearch = await this.addArtistPictures(tmpSearch.results);
         this.loading = true;
-        this.search = tmpSearch;
+        this.search = endSearch;
       }
     },
     watch: {
