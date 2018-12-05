@@ -19,7 +19,7 @@
         <div class="navbar-item">
           <div class="field has-addons">
             <div class="control search">
-              <input class="input custom" v-on:keyup="keymonitor" v-model="input" type="text" placeholder="Search" @keyup.enter="push">
+              <input @blur="handleBlur" class="input custom" v-on:keyup="keymonitor" v-model="input" type="text" placeholder="Search" @keyup.enter="push">
               <div class="instant-results">
                 <ul class="list-unstyled result-bucket" id="match">
                   <li class="result-entry"  v-for="item in this.data">
@@ -86,6 +86,9 @@
     components: {
     },
     methods: {
+      handleBlur: function handleBlur() {
+        this.data = '';
+      },
       keymonitor: function key() {
         setTimeout(() => {
           this.getData();
