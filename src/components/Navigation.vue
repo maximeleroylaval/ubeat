@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar" role="navigation" aria-label="main navigation">
+  <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
       <router-link class="navbar-item" to="/">
         <img src="@/assets/img/LogoTextOnly.png" alt="UBeat app" height="128">
@@ -9,32 +9,13 @@
           <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
         </a>
       </div>
-      <div class="navbar-menu" id="navMenu">
-        <div class="navbar-start">
-          <router-link class="navbar-item" to="/">Home</router-link>
-          <router-link class="navbar-item" to="/playlists" v-bind:user="user">Playlist</router-link>
-        </div>
-        <div class="navbar-end">
-          <div class="navbar-item has-dropdown is-hoverable" id="dropdown-user" v-if="user">
-            <a class="navbar-link is-hidden-touch">
-              <i class="fas fa-user-circle fa-2x"></i>
-              {{ user.name }}
-            </a>
-            <div class="navbar-dropdown">
-              <div class="navbar-item">
-                <i class="fas fa-user-circle fa-2x is-hidden-desktop"></i>
-                {{ user.email }}
-              </div>
-              <hr class="dropdown-divider">
-              <router-link class="navbar-item" v-bind:to="{ name: 'User', params: { id: user.id }}" >
-                Profil
-              </router-link>
-              <a class="navbar-item">
-                Log out
-              </a>
-            </div>
-          </div>
-        </div>
+    </div>
+    <div class="navbar-menu" id="navMenu">
+      <div class="navbar-start">
+        <router-link class="navbar-item" to="/">Home</router-link>
+        <router-link class="navbar-item" to="/playlists" v-bind:user="user">Playlist</router-link>
+      </div>
+      <div class="navbar-end">
         <div class="navbar-item">
           <div class="field has-addons">
             <div class="control search">
@@ -61,6 +42,25 @@
                 <button ref="search" class="button custom"><i class="fas fa-search"></i></button>
               </router-link>
             </div>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable" id="dropdown-user" v-if="user">
+          <a class="navbar-link is-hidden-touch">
+            <i class="fas fa-user-circle fa-2x"></i>
+            {{ user.name }}
+          </a>
+          <div class="navbar-dropdown">
+            <div class="navbar-item">
+              <i class="fas fa-user-circle fa-2x is-hidden-desktop"></i>
+              {{ user.email }}
+            </div>
+            <hr class="dropdown-divider">
+            <router-link class="navbar-item" v-bind:to="{ name: 'User', params: { id: user.id }}" >
+              Profil
+            </router-link>
+            <a class="navbar-item">
+              Log out
+            </a>
           </div>
         </div>
       </div>
@@ -142,7 +142,6 @@
       }
     },
   };
-
 
   document.addEventListener('DOMContentLoaded', () => {
     const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);

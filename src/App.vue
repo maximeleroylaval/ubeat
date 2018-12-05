@@ -4,6 +4,7 @@
     <section class="section" v-if="user">
       <router-view v-bind:user="user"></router-view>
     </section>
+    <Footer></Footer>
   </div>
 </template>
 
@@ -11,6 +12,7 @@
   import * as api from '@/api';
   import Navigation from '@/components/Navigation';
   import Home from '@/components/Home';
+  import Footer from '@/components/Footer';
 
   export default {
     name: 'app',
@@ -18,7 +20,8 @@
     },
     components: {
       Navigation,
-      Home
+      Home,
+      Footer
     },
     async created() {
       await api.login();
@@ -30,6 +33,8 @@
       };
     },
   };
+
+  document.body.classList.add('has-navbar-fixed-top');
 </script>
 
 <style>

@@ -52,12 +52,14 @@
       changeButtonPlay() {
         const id = `playBtn${this.song.trackId}`;
         const button = document.getElementById(id);
-        if (button.classList.contains('fa-play-circle')) {
-          button.classList.remove('fa-play-circle');
-          button.classList.add('fa-pause-circle');
-        } else {
-          button.classList.remove('fa-pause-circle');
-          button.classList.add('fa-play-circle');
+        if (button !== null) {
+          if (button.classList.contains('fa-play-circle')) {
+            button.classList.remove('fa-play-circle');
+            button.classList.add('fa-pause-circle');
+          } else {
+            button.classList.remove('fa-pause-circle');
+            button.classList.add('fa-play-circle');
+          }
         }
       },
       playPreview() {

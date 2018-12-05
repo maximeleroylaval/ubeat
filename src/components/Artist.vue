@@ -1,5 +1,3 @@
-
-
 <template>
     <div id="Album" class="container">
       <div class="center" v-if="!albums">
