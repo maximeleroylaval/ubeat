@@ -249,6 +249,12 @@
     background-repeat: no-repeat;
   }
 
+  div.instant-results {
+    overflow-y: auto;
+    max-height: 300px;
+    max-width: 200px;
+  }
+
   .input.custom {
     border-radius: 0;
     border: 0;
