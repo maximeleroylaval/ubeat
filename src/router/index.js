@@ -8,6 +8,7 @@ import Playlist from '@/components/Playlist';
 import User from '@/components/User';
 import Search from '@/components/Search';
 import Login from '@/components/Login';
+import Register from '@/components/Register';
 
 Vue.use(Router);
 
@@ -63,6 +64,13 @@ export default new Router({
       path: '/login',
       name: 'Login',
       component: Login,
+      props: true,
+      meta: { auth: false }
+    },
+    {
+      path: '/register',
+      name: 'Register',
+      component: Register,
       props: true,
       meta: { auth: false }
     },

@@ -103,7 +103,6 @@
       insertInsideInput: function insertInsideInput(element) {
         this.input = element;
         this.data = '';
-        console.log(this.input);
         this.$router.push({ name: 'Search', params: { type: this.selected }, query: { q: this.input } });
       },
       parseData: function parseData() {

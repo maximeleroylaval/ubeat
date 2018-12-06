@@ -12,6 +12,13 @@ export const login = () => axios.post('https://ubeat.herokuapp.com/login/',
     password: user.password,
   });
 
+export const register = (_name, _email, _password) => axios.post('https://ubeat.herokuapp.com/signup/',
+  {
+    name: _name,
+    email: _email,
+    password: _password,
+  });
+
 export const getTokenInfo = () =>
   axios.get('https://ubeat.herokuapp.com/tokeninfo', {
     headers: { Authorization: user.accessToken }

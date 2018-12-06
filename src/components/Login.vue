@@ -12,6 +12,7 @@
             <input type="password" placeholder="Mot de passe" v-model="password" class="input form-input" id="passwordInput"/>
             <button v-on:click="login" class="button form-button" @mouseover="mouseOver" id="submitButton" @mouseout="mouseOut" >Se connecter</button>
         </div>
+        <router-link :to="'register'">Pas encore inscrit ? C'est par ici</router-link>
     </div>
 </template>
 
@@ -90,5 +91,9 @@
     .form-button {
         margin-top: 30px;
         margin-bottom: 10px;
+    }
+    #errorBox {
+        max-width: 500px;
+        min-width: 420px;
     }
 </style>

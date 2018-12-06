@@ -61,6 +61,7 @@
 
 <script>
   import * as api from '@/api';
+  import router from '@/router';
 
   export default {
     name: 'Home',
@@ -130,27 +131,29 @@
       };
     },
     async created() {
-      const tmpArtist = [];
-      for (let i = 0; i < this.artist_ids.length; i += 1) {
-        tmpArtist.push(api.getArtist(this.artist_ids[i]));
-      }
-      const final = await Promise.all(tmpArtist);
-      const endFinal = await this.addArtistPictures(final);
-      this.artists = [];
-      for (let i = 0; i < endFinal.length; i += 1) {
-        this.artists.push(endFinal[i]);
-      }
-      this.loading_artist = true;
-      const tmpAlbum = [];
-      for (let i = 0; i < this.album_ids.length; i += 1) {
-        tmpAlbum.push(api.getAlbum(this.album_ids[i]));
-      }
-      const finalAlbum = await Promise.all(tmpAlbum);
-      this.albums = [];
-      for (let i = 0; i < finalAlbum.length; i += 1) {
-        this.albums.push(finalAlbum[i].results);
-      }
-      this.loading_album = true;
+      if (api.user.email !== null && api.user.email !== undefined) {
+        const tmpArtist = [];
+        for (let i = 0; i < this.artist_ids.length; i += 1) {
+          tmpArtist.push(api.getArtist(this.artist_ids[i]));
+        }
+        const final = await Promise.all(tmpArtist);
+        const endFinal = await this.addArtistPictures(final);
+        this.artists = [];
+        for (let i = 0; i < endFinal.length; i += 1) {
+          this.artists.push(endFinal[i]);
+        }
+        this.loading_artist = true;
+        const tmpAlbum = [];
+        for (let i = 0; i < this.album_ids.length; i += 1) {
+          tmpAlbum.push(api.getAlbum(this.album_ids[i]));
+        }
+        const finalAlbum = await Promise.all(tmpAlbum);
+        this.albums = [];
+        for (let i = 0; i < finalAlbum.length; i += 1) {
+          this.albums.push(finalAlbum[i].results);
+        }
+        this.loading_album = true;
+      } else { router.push('/login'); }
     }
   };
 </script>
