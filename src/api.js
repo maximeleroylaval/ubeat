@@ -4,21 +4,12 @@ import User from '@/models/User';
 
 
 export const user = new User();
-user.email = 'team-7';
-user.password = 'team-7';
-user.accessToken = '';
 
 
 export const login = () => axios.post('https://ubeat.herokuapp.com/login/',
   {
     email: user.email,
     password: user.password,
-  })
-  .then((r) => {
-    user.accessToken = r.data.token;
-  })
-  .catch((e) => {
-    console.log(e);
   });
 
 export const getTokenInfo = () =>

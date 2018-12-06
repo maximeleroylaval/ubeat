@@ -8,7 +8,7 @@ Vue.config.productionTip = false;
 
 const globalStore = new Vue({
   data: {
-    currentSong: null
+    currentSong: null,
   }
 });
 

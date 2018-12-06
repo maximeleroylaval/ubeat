@@ -42,6 +42,23 @@
   border-color: #000000 transparent #000000 transparent;
   animation: lds-dual-ring 1.2s linear infinite;
 }
+
+.navbar {
+  background-color: #ECEFF1;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, .3);
+
+}
+.navbar-link::after {
+  border-color: black;
+}
+.navbar-burger span {
+  color: black;
+}
+.navbar-item.right {
+  margin-left: auto;
+  margin-right: 0;
+}
+
 @keyframes lds-dual-ring {
   0% {
     transform: rotate(0deg);
