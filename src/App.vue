@@ -1,24 +1,19 @@
 <template>
     <div id="app">
-        <div v-if="user">
-            <Navigation v-bind:user="user" v-on:logOut="logout"></Navigation>
-            <section class="section" v-if="user">
-                <router-view v-bind:user="user"></router-view>
-            </section>
-        </div>
-        <div v-else>
-            <Login v-bind:user="user" v-on:logged="setUser"/>
-        </div>
+        <Navigation v-bind:user="user" v-on:logOut="logout" v-if="user"></Navigation>
+        <router-view v-bind:user="user" v-on:logged="setUser"></router-view>
         <Footer v-if="user"></Footer>
     </div>
 </template>
 
 <script>
+  import router from '@/router';
   import * as api from '@/api';
   import Navigation from '@/components/Navigation';
   import Home from '@/components/Home';
   import Footer from '@/components/Footer';
   import Login from './components/Login';
+
 
   export default {
     name: 'app',
@@ -32,11 +27,12 @@
     methods: {
       logout() {
         this.user = null;
+        api.user.email = null;
         this.$forceUpdate();
+        router.push({ path: '/login' });
       },
       async setUser() {
-        this.user = await
-          api.getTokenInfo();
+        this.user = await api.getTokenInfo();
         this.$forceUpdate();
       }
     },
