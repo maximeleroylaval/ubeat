@@ -94,7 +94,6 @@
         this.$emit('logOut');
       },
       handleBlur: function handleBlur() {
-        this.data = '';
       },
       keymonitor: function key() {
         setTimeout(() => {
@@ -104,7 +103,8 @@
       insertInsideInput: function insertInsideInput(element) {
         this.input = element;
         this.data = '';
-        this.$refs.search.click();
+        console.log(this.input);
+        this.$router.push({ name: 'Search', params: { type: this.selected }, query: { q: this.input } });
       },
       parseData: function parseData() {
         let arr = [];
@@ -130,7 +130,7 @@
       },
       push: function submit() {
         this.data = '';
-        this.$refs.search.click();
+        this.$router.push({ name: 'Search', params: { type: this.selected }, query: { q: this.input } });
       },
       clear: function clear() {
         this.data = '';
