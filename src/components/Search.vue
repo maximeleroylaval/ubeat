@@ -135,9 +135,12 @@
           this.type = '';
         }
         const tmpSearch = await api.searchGlobal(this.type, this.query);
-        const endSearch = await this.addArtistPictures(tmpSearch.results);
+        if (tmpSearch.results) {
+          this.search = await this.addArtistPictures(tmpSearch.results);
+        } else {
+          this.search = tmpSearch;
+        }
         this.loading = true;
-        this.search = endSearch;
       }
     },
     watch: {
