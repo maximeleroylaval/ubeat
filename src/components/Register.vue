@@ -6,13 +6,13 @@
             <img src="@/assets/img/LogoTextOnly.png" alt="UBeat app" height="128">
             <h1 class="title form-label">Création de compte</h1>
             <label class="label form-label">Nom</label>
-            <input type="text" placeholder="Nom" v-model="name" class="input form-input" id="nameInput"/>
+            <input type="text" placeholder="Nom" v-model="name" class="input form-input" id="nameInput" @keyup.enter="create"/>
             <label class="label form-label">Email</label>
-            <input type="text" placeholder="Email" v-model="email" class="input form-input" id="emailInput"/>
+            <input type="text" placeholder="Email" v-model="email" class="input form-input" id="emailInput" @keyup.enter="create"/>
             <label class="label form-label">Mot de passe</label>
-            <input type="password" placeholder="Mot de passe" v-model="password" class="input form-input" id="passwordInput"/>
+            <input type="password" placeholder="Mot de passe" v-model="password" class="input form-input" id="passwordInput" @keyup.enter="create"/>
             <label class="label form-label">Confirmation de mot de passe</label>
-            <input type="password" placeholder="Mot de passe" v-model="passwordConfirmation" class="input form-input" id="passwordInput2"/>
+            <input type="password" placeholder="Mot de passe" v-model="passwordConfirmation" class="input form-input" id="passwordInput2" @keyup.enter="create"/>
             <button v-on:click="create" class="button form-button" @mouseover="mouseOver" id="submitButton" @mouseout="mouseOut" >Créer son compte !</button>
         </div>
     </div>
@@ -67,6 +67,7 @@
               .add('is-danger');
           } else {
             api.register(this.name, this.email, this.password).then(() => {
+              this.$emit('registered');
               router.push('/login');
             }).catch(() => {
               this.setError('Email déjà pris');

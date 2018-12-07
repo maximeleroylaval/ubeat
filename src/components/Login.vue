@@ -1,5 +1,9 @@
-<template @keyup.enter="login">
-    <div class="container" v-on:>
+<template>
+    <div class="container">
+        <div class="notification is-success" hidden id="confirmationBox">
+            <button class="delete" v-on:click="hideConfirmation"></button>
+            Compte créé, vous pouvez maintenant vous connecter
+        </div>
         <div class="notification is-danger" hidden id="errorBox">
             <button class="delete" v-on:click="hideError"></button>
             Email/Mot de passe incorrects
@@ -7,12 +11,12 @@
         <div class="box center-box">
             <img src="@/assets/img/LogoTextOnly.png" alt="UBeat app" height="128">
             <label class="label form-label">Email</label>
-            <input type="text" placeholder="Email" v-model="email" class="input form-input" id="emailInput"/>
+            <input type="text" placeholder="Email" v-model="email" class="input form-input" id="emailInput" @keyup.enter="login"/>
             <label class="label form-label">Mot de passe</label>
-            <input type="password" placeholder="Mot de passe" v-model="password" class="input form-input" id="passwordInput"/>
+            <input type="password" placeholder="Mot de passe" v-model="password" class="input form-input" id="passwordInput" @keyup.enter="login"/>
             <button v-on:click="login" class="button form-button" @mouseover="mouseOver" id="submitButton" @mouseout="mouseOut" >Se connecter</button>
         </div>
-        <router-link :to="'register'">Pas encore inscrit ? C'est par ici</router-link>
+        <router-link :to="'register'" v-on:registered="displayConfirmation">Pas encore inscrit ? C'est par ici</router-link>
     </div>
 </template>
 
@@ -56,6 +60,14 @@
         password.classList.remove('is-danger');
         err.hidden = true;
       },
+      displayConfirmation() {
+        // eslint-disable-next-line
+        console.log('Je passe par ici');
+        document.getElementById('confirmationBox').hidden = false;
+      },
+      hideConfirmation() {
+        document.getElementById('confirmationBox').hidden = true;
+      },
       mouseOver() {
         const btn = document.getElementById('submitButton');
         btn.classList.add('is-link');
@@ -93,6 +105,10 @@
         margin-bottom: 10px;
     }
     #errorBox {
+        max-width: 500px;
+        min-width: 420px;
+    }
+    #confirmationBox {
         max-width: 500px;
         min-width: 420px;
     }
