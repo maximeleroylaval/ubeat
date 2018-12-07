@@ -18,7 +18,7 @@ export default globalStore;
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.auth)) {
     // if user is not logged and try to access to an authenticed route
-    if (api.user.email === null) {
+    if (api.user.email === null || api.user.email === undefined) {
       next({ path: '/login' });
     } else {
       next();
@@ -30,6 +30,7 @@ router.beforeEach((to, from, next) => {
     next();
   }
 });
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
