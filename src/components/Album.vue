@@ -119,9 +119,6 @@
 </script>
 
 <style scoped>
-  #Album {
-    padding-top: 40px;
-  }
   .header {
     margin-bottom: 40px;
   }
@@ -136,8 +133,7 @@
   .headline .title.is-1 {
     margin-bottom: 0;
   }
-
-
+  
   .spinner {
     margin: 100px auto 0;
     width: 70px;

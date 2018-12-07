@@ -14,7 +14,6 @@
   import Footer from '@/components/Footer';
   import Login from './components/Login';
 
-
   export default {
     name: 'app',
     props: {},
@@ -47,8 +46,6 @@
       };
     },
   };
-
-  document.body.classList.add('has-navbar-fixed-top');
 </script>
 
 <style>

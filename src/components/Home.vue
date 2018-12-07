@@ -159,10 +159,6 @@
 </script>
 
 <style>
-  #Home {
-    padding-top: 40px;
-  }
-
   .center {
     position:fixed;
     left: 50%;

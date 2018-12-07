@@ -158,7 +158,6 @@
 </script>
 
 <style scoped>
-
   .spinner {
     margin: 100px auto 0;
     width: 70px;
