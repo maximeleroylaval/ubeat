@@ -1,3 +1,13 @@
+html {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+body {
+  padding-top: 2rem;
+  padding-bottom: 40px;
+}
+
 .column.has-vertically-aligned-content {
   display: flex;
   flex-direction: column;
@@ -67,4 +77,3 @@
     transform: rotate(360deg);
   }
 }
-

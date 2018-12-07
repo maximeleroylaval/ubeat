@@ -75,9 +75,6 @@
 </script>
 
 <style scoped>
-  #Album {
-    padding-top: 40px;
-  }
   .jaq img {
     border-radius: 50%;
     margin-bottom: 40px;
