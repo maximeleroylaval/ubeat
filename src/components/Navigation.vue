@@ -67,7 +67,6 @@
         </div>
       </div>
     </div>
-    </div>
   </nav>
 </template>
 
@@ -97,7 +96,10 @@
       handleBlur: function handleBlur() {
       },
       keymonitor: function key() {
-        this.getData();
+        setTimeout(
+          () => {
+            this.getData();
+          }, 2000);
       },
       insertInsideInput: function insertInsideInput(element) {
         this.input = element;
