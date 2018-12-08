@@ -94,7 +94,6 @@
         this.$emit('logOut');
       },
       handleBlur: function handleBlur() {
-        this.data = '';
       },
       keymonitor: function key() {
         setTimeout(() => {
