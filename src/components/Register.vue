@@ -1,5 +1,8 @@
 <template>
-    <div class="container" v-on:>
+    <div class="container">
+        <div class="notification is-success" hidden id="confirmationBox">
+            Compte créé, vous allez être redirigé vers la page d'acceuil dans {{ sec }} secondes ...
+        </div>
         <div class="notification is-danger" hidden id="errorBox">
         </div>
         <div class="box center-box">
@@ -29,11 +32,13 @@
         email: '',
         password: '',
         passwordConfirmation: '',
-        name: ''
+        name: '',
+        sec: 5
       };
     },
     methods: {
       create() {
+        this.sec = 5;
         this.hideError();
         const btn = document.getElementById('submitButton');
         let complete = true;
@@ -67,8 +72,9 @@
               .add('is-danger');
           } else {
             api.register(this.name, this.email, this.password).then(() => {
-              this.$emit('registered');
-              router.push('/login');
+              document.getElementById('confirmationBox').hidden = false;
+              setInterval(() => { this.sec -= 1; }, 1000);
+              setTimeout(() => { router.push('/login'); }, 5000);
             }).catch(() => {
               this.setError('Email déjà pris');
               const email = document.getElementById('emailInput');

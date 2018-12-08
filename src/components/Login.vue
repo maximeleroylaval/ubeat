@@ -1,9 +1,5 @@
 <template>
     <div class="container">
-        <div class="notification is-success" hidden id="confirmationBox">
-            <button class="delete" v-on:click="hideConfirmation"></button>
-            Compte créé, vous pouvez maintenant vous connecter
-        </div>
         <div class="notification is-danger" hidden id="errorBox">
             <button class="delete" v-on:click="hideError"></button>
             Email/Mot de passe incorrects
@@ -16,7 +12,7 @@
             <input type="password" placeholder="Mot de passe" v-model="password" class="input form-input" id="passwordInput" @keyup.enter="login"/>
             <button v-on:click="login" class="button form-button" @mouseover="mouseOver" id="submitButton" @mouseout="mouseOut" >Se connecter</button>
         </div>
-        <router-link :to="'register'" v-on:registered="displayConfirmation">Pas encore inscrit ? C'est par ici</router-link>
+        <router-link :to="'register'">Pas encore inscrit ? C'est par ici</router-link>
     </div>
 </template>
 
@@ -59,14 +55,6 @@
         email.classList.remove('is-danger');
         password.classList.remove('is-danger');
         err.hidden = true;
-      },
-      displayConfirmation() {
-        // eslint-disable-next-line
-        console.log('Je passe par ici');
-        document.getElementById('confirmationBox').hidden = false;
-      },
-      hideConfirmation() {
-        document.getElementById('confirmationBox').hidden = true;
       },
       mouseOver() {
         const btn = document.getElementById('submitButton');
