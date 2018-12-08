@@ -108,6 +108,7 @@ export const getArtist = id =>
       console.log(e.message);
     });
 
+
 export const searchGlobalLimit = (type, query) =>
   axios.get(`https://ubeat.herokuapp.com/search/${type}?q=${query}&access_token=${user.accessToken}`)
     .then(response => response.data)
@@ -150,12 +151,12 @@ export const deleteSongFromPlaylist = (id, idTrack) =>
     });
 export const scrapArtistPicture = (url, size) =>
   axios.get(url)
-  .then((html) => {
-    const doc = new DOMParser().parseFromString(html.data, 'text/html');
-    const x = doc.querySelector('meta[property="og:image"]').getAttribute('content');
-    const image = x.substring(0, x.lastIndexOf('/') + 1);
-    return `${image}${size}.jpg`;
-  })
-  /* eslint-disable */
-  .catch((e) => 'https://static.thenounproject.com/png/630729-200.png');
-  /* eslint-enable */
+    .then((html) => {
+      const doc = new DOMParser().parseFromString(html.data, 'text/html');
+      const x = doc.querySelector('meta[property="og:image"]').getAttribute('content');
+      const image = x.substring(0, x.lastIndexOf('/') + 1);
+      return `${image}${size}.jpg`;
+    })
+    /* eslint-disable */
+    .catch((e) => 'https://static.thenounproject.com/png/630729-200.png');
+/* eslint-enable */
