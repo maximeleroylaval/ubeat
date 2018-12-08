@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="container">
   <div class="center" v-if="!namePlaylist">
     <div class="spinner">
       <div class="bounce1"></div>

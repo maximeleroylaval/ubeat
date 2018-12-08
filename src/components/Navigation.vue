@@ -47,7 +47,7 @@
                 <div class="navbar-item has-dropdown is-hoverable" id="dropdown-user">
                     <div v-if="user">
                         <a class="navbar-link is-hidden-touch">
-                            <i class="fas fa-user-circle fa-2x"></i>
+                            <i style="margin-right:6px" class="fas fa-user-circle fa-2x"></i>
                             {{ user.name }}
                         </a>
                         <div class="navbar-dropdown">
@@ -103,7 +103,7 @@
       insertInsideInput: function insertInsideInput(element) {
         this.input = element;
         this.data = '';
-        this.$refs.search.click();
+        this.$router.push({ name: 'Search', params: { type: this.selected }, query: { q: this.input } });
       },
       parseData: function parseData() {
         let arr = [];
@@ -129,7 +129,7 @@
       },
       push: function submit() {
         this.data = '';
-        this.$refs.search.click();
+        this.$router.push({ name: 'Search', params: { type: this.selected }, query: { q: this.input } });
       },
       clear: function clear() {
         this.data = '';

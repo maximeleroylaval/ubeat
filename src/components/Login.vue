@@ -7,15 +7,17 @@
         <div class="box center-box">
             <img src="@/assets/img/LogoTextOnly.png" alt="UBeat app" height="128">
             <label class="label form-label">Email</label>
-            <input type="text" placeholder="Email" v-model="email" class="input form-input"/>
+            <input type="text" placeholder="Email" v-model="email" class="input form-input" id="emailInput" @keyup.enter="login"/>
             <label class="label form-label">Mot de passe</label>
-            <input type="password" placeholder="Mot de passe" v-model="password" class="input form-input"/>
-            <button v-on:click="login" class="button form-button" @mouseover="mouseOver" id="submitButton" @mouseout="mouseOut">Se connecter</button>
+            <input type="password" placeholder="Mot de passe" v-model="password" class="input form-input" id="passwordInput" @keyup.enter="login"/>
+            <button v-on:click="login" class="button form-button" @mouseover="mouseOver" id="submitButton" @mouseout="mouseOut" >Se connecter</button>
         </div>
+        <router-link :to="'register'">Pas encore inscrit ? C'est par ici</router-link>
     </div>
 </template>
 
 <script>
+  import router from '@/router';
   import * as api from '@/api';
 
   export default {
@@ -35,14 +37,23 @@
         api.login().then((r) => {
           api.user.accessToken = r.data.token;
           this.$emit('logged');
+          router.push({ path: '/' });
         }).catch(() => {
           const err = document.getElementById('errorBox');
+          const email = document.getElementById('emailInput');
+          const password = document.getElementById('passwordInput');
+          email.classList.add('is-danger');
+          password.classList.add('is-danger');
           err.hidden = false;
           btn.classList.remove('is-loading');
         });
       },
       hideError() {
         const err = document.getElementById('errorBox');
+        const email = document.getElementById('emailInput');
+        const password = document.getElementById('passwordInput');
+        email.classList.remove('is-danger');
+        password.classList.remove('is-danger');
         err.hidden = true;
       },
       mouseOver() {
@@ -52,7 +63,7 @@
       mouseOut() {
         const btn = document.getElementById('submitButton');
         btn.classList.remove('is-link');
-      }
+      },
     }
   };
 </script>
@@ -80,5 +91,13 @@
     .form-button {
         margin-top: 30px;
         margin-bottom: 10px;
+    }
+    #errorBox {
+        max-width: 500px;
+        min-width: 420px;
+    }
+    #confirmationBox {
+        max-width: 500px;
+        min-width: 420px;
     }
 </style>

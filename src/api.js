@@ -2,14 +2,19 @@
 import axios from 'axios';
 import User from '@/models/User';
 
-
 export const user = new User();
-
 
 export const login = () => axios.post('https://ubeat.herokuapp.com/login/',
   {
     email: user.email,
     password: user.password,
+  });
+
+export const register = (_name, _email, _password) => axios.post('https://ubeat.herokuapp.com/signup/',
+  {
+    name: _name,
+    email: _email,
+    password: _password,
   });
 
 export const getTokenInfo = () =>
