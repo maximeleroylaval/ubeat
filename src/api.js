@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import axios from 'axios';
 import User from '@/models/User';
+import * as cookie from '@/cookie';
 
 export const user = new User();
 
@@ -19,7 +20,7 @@ export const register = (_name, _email, _password) => axios.post('https://ubeat.
 
 export const getTokenInfo = () =>
   axios.get('https://ubeat.herokuapp.com/tokeninfo', {
-    headers: { Authorization: user.accessToken }
+    headers: { Authorization: cookie.getToken() }
   })
     .then(response => response.data)
     .catch((e) => {
@@ -27,14 +28,14 @@ export const getTokenInfo = () =>
     });
 
 export const getPlaylist = id =>
-  axios.get(`https://ubeat.herokuapp.com/playlists/${id}?access_token=${user.accessToken}`)
+  axios.get(`https://ubeat.herokuapp.com/playlists/${id}?access_token=${cookie.getToken()}`)
     .then(response => response.data)
     .catch((e) => {
       console.log(e.message);
     });
 
 export const createPlaylist = name =>
-  axios.post(`https://ubeat.herokuapp.com/playlists/?access_token=${user.accessToken}`, {
+  axios.post(`https://ubeat.herokuapp.com/playlists/?access_token=${cookie.getToken()}`, {
     name
   })
     .then(response => response.data)
@@ -43,7 +44,7 @@ export const createPlaylist = name =>
     });
 
 export const updatePlaylist = (id, name) =>
-  axios.put(`https://ubeat.herokuapp.com/playlists/${id}?access_token=${user.accessToken}`, {
+  axios.put(`https://ubeat.herokuapp.com/playlists/${id}?access_token=${cookie.getToken()}`, {
     name
   })
     .then(response => response.data)
@@ -53,7 +54,7 @@ export const updatePlaylist = (id, name) =>
 
 
 export const addSongToPlaylist = (id, track) =>
-  axios.post(`https://ubeat.herokuapp.com/playlists/${id}/tracks?access_token=${user.accessToken}`,
+  axios.post(`https://ubeat.herokuapp.com/playlists/${id}/tracks?access_token=${cookie.getToken()}`,
     track)
     .then(response => response.data)
     .catch((e) => {
@@ -61,28 +62,28 @@ export const addSongToPlaylist = (id, track) =>
     });
 
 export const getAlbum = id =>
-  axios.get(`https://ubeat.herokuapp.com/albums/${id}?access_token=${user.accessToken}`)
+  axios.get(`https://ubeat.herokuapp.com/albums/${id}?access_token=${cookie.getToken()}`)
     .then(response => response.data)
     .catch((e) => {
       console.log(e.message);
     });
 
 export const getAlbumsFromArtist = id =>
-  axios.get(`https://ubeat.herokuapp.com/artists/${id}/albums?access_token=${user.accessToken}`)
+  axios.get(`https://ubeat.herokuapp.com/artists/${id}/albums?access_token=${cookie.getToken()}`)
     .then(response => response.data)
     .catch((e) => {
       console.log(e.message);
     });
 
 export const getUser = id =>
-  axios.get(`https://ubeat.herokuapp.com/users/${id}?access_token=${user.accessToken}`)
+  axios.get(`https://ubeat.herokuapp.com/users/${id}?access_token=${cookie.getToken()}`)
     .then(response => response.data)
     .catch((e) => {
       console.log(e.message);
     });
 
 export const followUser = (idUser, callback) =>
-  axios.post(`https://ubeat.herokuapp.com/follow?access_token=${user.accessToken}`, {
+  axios.post(`https://ubeat.herokuapp.com/follow?access_token=${cookie.getToken()}`, {
     id: idUser,
   })
     .then((response) => {
@@ -93,7 +94,7 @@ export const followUser = (idUser, callback) =>
     });
 
 export const unfollowUser = (id, callback) =>
-  axios.delete(`https://ubeat.herokuapp.com/follow/${id}?access_token=${user.accessToken}`)
+  axios.delete(`https://ubeat.herokuapp.com/follow/${id}?access_token=${cookie.getToken()}`)
     .then((response) => {
       callback(response.data);
     })
@@ -102,48 +103,48 @@ export const unfollowUser = (id, callback) =>
     });
 
 export const getArtist = id =>
-  axios.get(`https://ubeat.herokuapp.com/artists/${id}?access_token=${user.accessToken}`)
+  axios.get(`https://ubeat.herokuapp.com/artists/${id}?access_token=${cookie.getToken()}`)
     .then(response => response.data)
     .catch((e) => {
       console.log(e.message);
     });
 
 export const searchGlobalLimit = (type, query) =>
-  axios.get(`https://ubeat.herokuapp.com/search/${type}?q=${query}&access_token=${user.accessToken}`)
+  axios.get(`https://ubeat.herokuapp.com/search/${type}?q=${query}&access_token=${cookie.getToken()}`)
     .then(response => response.data)
     .catch((e) => {
       console.log(e.message);
     });
 
 export const searchGlobal = (type, query) =>
-  axios.get(`https://ubeat.herokuapp.com/search/${type}?q=${query}&limit=50&access_token=${user.accessToken}`)
+  axios.get(`https://ubeat.herokuapp.com/search/${type}?q=${query}&limit=50&access_token=${cookie.getToken()}`)
     .then(response => response.data)
     .catch((e) => {
       console.log(e.message);
     });
 
 export const getTracksFromAlbum = id =>
-  axios.get(`https://ubeat.herokuapp.com/albums/${id}/tracks?access_token=${user.accessToken}`)
+  axios.get(`https://ubeat.herokuapp.com/albums/${id}/tracks?access_token=${cookie.getToken()}`)
     .then(response => response.data)
     .catch((e) => {
       console.log(e.message);
     });
 
 export const getAllPlaylist = () =>
-  axios.get(`https://ubeat.herokuapp.com/playlists/?access_token=${user.accessToken}`)
+  axios.get(`https://ubeat.herokuapp.com/playlists/?access_token=${cookie.getToken()}`)
     .then(response => response.data)
     .catch((e) => {
       console.log(e.message);
     });
 
 export const deletePlaylist = id =>
-  axios.delete(`https://ubeat.herokuapp.com/playlists/${id}?access_token=${user.accessToken}`)
+  axios.delete(`https://ubeat.herokuapp.com/playlists/${id}?access_token=${cookie.getToken()}`)
     .then(response => response.data)
     .catch((e) => {
       console.log(e.message);
     });
 export const deleteSongFromPlaylist = (id, idTrack) =>
-  axios.delete(`https://ubeat.herokuapp.com/playlists/${id}/tracks/${idTrack}?access_token=${user.accessToken}`)
+  axios.delete(`https://ubeat.herokuapp.com/playlists/${id}/tracks/${idTrack}?access_token=${cookie.getToken()}`)
     .then(response => response.data)
     .catch((e) => {
       console.log(e.message);
