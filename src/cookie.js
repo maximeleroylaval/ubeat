@@ -5,6 +5,7 @@ export const setTokenCookie = (token) => {
 };
 
 export const getToken = () => {
+  const name = 'access_token=';
   const decodedCookie = decodeURIComponent(document.cookie);
   const ca = decodedCookie.split(';');
   for (let i = 0; i < ca.length; i++) {
@@ -12,9 +13,13 @@ export const getToken = () => {
     while (c.charAt(0) === ' ') {
       c = c.substring(1);
     }
-    if (c.indexOf('access_token') === 0) {
-      return c.substring(name.length, c.length);
+    if (c.indexOf(name) === 0) {
+      return c.substring((name).length, c.length);
     }
   }
   return '';
+};
+
+export const deleteTokenCookie = () => {
+  document.cookie = 'access_token=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 };

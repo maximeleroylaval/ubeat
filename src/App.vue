@@ -9,6 +9,7 @@
 <script>
   import router from '@/router';
   import * as api from '@/api';
+  import * as cookie from '@/cookie';
   import Navigation from '@/components/Navigation';
   import Home from '@/components/Home';
   import Footer from '@/components/Footer';
@@ -26,7 +27,7 @@
     methods: {
       logout() {
         this.user = null;
-        api.user.email = null;
+        cookie.deleteTokenCookie();
         this.$forceUpdate();
         router.push({ path: '/login' });
       },
