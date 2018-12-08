@@ -47,7 +47,7 @@
                 <div class="navbar-item has-dropdown is-hoverable" id="dropdown-user">
                     <div v-if="user">
                         <a class="navbar-link is-hidden-touch">
-                            <i class="fas fa-user-circle fa-2x"></i>
+                            <i style="margin-right:6px" class="fas fa-user-circle fa-2x"></i>
                             {{ user.name }}
                         </a>
                         <div class="navbar-dropdown">
