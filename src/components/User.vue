@@ -1,8 +1,9 @@
 <template>
-  <div>
+  <div class="container">
     <h4 class="title is-2">User</h4>
+    <hr>
     <div class="headline" v-if="user">
-      <p class="title is-5">{{ user.name }}
+     <p><b>Username : </b> {{ user.name }}
 
         <a v-if="loading">
         </a>
@@ -14,11 +15,11 @@
         </a>
 
       </p>
-      <p class="title is-6">{{ user.email }}</p>
-
-
+      <p><b>Email : </b> {{ user.email }}</p>
+      <br>
     </div>
     <h4 class="title is-2">Playlist</h4>
+    <hr>
     <div v-if="!list">
       <div class="spinner">
         <div class="bounce1"></div>
@@ -45,7 +46,9 @@
       </tr>
       </tbody>
     </table>
+    <br>
     <h4 class="title is-2">Friends</h4>
+    <hr>
     <div v-if="!friends">
       <div class="spinner">
         <div class="bounce1"></div>
@@ -158,6 +161,9 @@
 </script>
 
 <style scoped>
+  td {
+    border: none;
+  }
   .spinner {
     margin: 100px auto 0;
     width: 70px;
@@ -198,8 +204,5 @@
         -webkit-transform: scale(1.0);
         transform: scale(1.0);
       }
-  }
-  td {
-    border: none;
   }
 </style>
