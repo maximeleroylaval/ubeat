@@ -83,7 +83,8 @@
       return {
         input: '',
         selected: 'global',
-        data: []
+        data: [],
+        timer: null
       };
     },
     components: {
@@ -96,10 +97,11 @@
       handleBlur: function handleBlur() {
       },
       keymonitor: function key() {
-        setTimeout(
+        clearTimeout(this.timer);
+        this.timer = setTimeout(
           () => {
             this.getData();
-          }, 2000);
+          }, 500);
       },
       insertInsideInput: function insertInsideInput(element) {
         this.input = element;
