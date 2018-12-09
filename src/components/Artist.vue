@@ -27,7 +27,7 @@
       </div>
       <div class="container-list">
         <div class="box-album" v-if="albums" v-for="item in albums">
-          <router-link v-bind:to="{ name: 'Album', params: { id: item.collectionId }}" >
+          <router-link v-bind:to="{ name: 'Album', params: { id: item.collectionId }}" v-on:logOut="logout">
             <div class="box has-text-centered">
               <i class="far fa-play-circle fa-4x play"></i>
               <img v-bind:src="item.artworkUrl100.replace('100x100bb', '300x0w')" alt="Jaquette d'album">
@@ -57,9 +57,15 @@
       };
     },
     methods: {
+      logout() {
+        this.$emit('logOut');
+      },
       async addArtistPicture(artist) {
         const myartist = JSON.parse(JSON.stringify(artist));
         myartist.artworkArtistUrl300 = await api.scrapArtistPicture(myartist.artistLinkUrl, '300x0w');
+        if (myartist.artworkArtistUrl300 === false) {
+          this.$emit('logOut');
+        }
         return myartist;
       },
     },
@@ -67,9 +73,13 @@
       const tmpArtist = await api.getArtist(this.id);
       const endArtist = await this.addArtistPicture(tmpArtist.results[0]);
       const tmp = await api.getAlbumsFromArtist(this.id);
-      this.artist = endArtist;
-      this.nbAlbum = tmp.resultCount;
-      this.albums = tmp.results;
+      if (tmp === false) {
+        this.$emit('logOut');
+      } else {
+        this.artist = endArtist;
+        this.nbAlbum = tmp.resultCount;
+        this.albums = tmp.results;
+      }
     }
   };
 </script>

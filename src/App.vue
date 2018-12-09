@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <Navigation v-bind:user="user" v-on:logOut="logout" v-if="user"></Navigation>
-        <router-view v-bind:user="user" v-on:logged="setUser"></router-view>
+        <router-view v-bind:user="user" v-on:logged="setUser" v-on:logOut="logout"></router-view>
         <Footer v-if="user"></Footer>
     </div>
 </template>
@@ -33,12 +33,20 @@
       },
       async setUser() {
         this.user = await api.getTokenInfo();
-        this.$forceUpdate();
+        if (this.user === false) {
+          this.user = null;
+          this.$emit('logOut');
+        } else {
+          this.$forceUpdate();
+        }
       }
     },
     async mounted() {
-      if (this.user == null && api.user.email !== undefined) {
+      if (cookie.getToken() !== '') {
         this.user = await api.getTokenInfo();
+        if (this.user === false) {
+          this.logout();
+        }
       }
     },
     data() {
