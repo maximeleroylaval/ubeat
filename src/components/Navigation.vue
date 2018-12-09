@@ -85,7 +85,11 @@
         input: '',
         selected: 'global',
         data: [],
-        timer: null
+        timer: null,
+        deb: debounce(
+          () => {
+            this.getData();
+          }, 500)
       };
     },
     components: {
@@ -98,10 +102,6 @@
       handleBlur: function handleBlur() {
       },
       keymonitor: function key() {
-        this.deb = debounce(
-          () => {
-            this.getData();
-          }, 500);
         this.deb();
       },
       insertInsideInput: function insertInsideInput(element) {
