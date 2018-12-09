@@ -18,9 +18,9 @@
       <div class="navbar-end">
         <div class="navbar-item">
           <div class="field has-addons">
-            <div class="control search">
+            <div class="control search" id="searchDiv">
               <input @blur="handleBlur" class="input custom" v-on:keyup="keymonitor" v-model="input" type="text" placeholder="Search" @keyup.enter="push">
-              <div class="instant-results">
+              <div class="instant-results" id="result-list">
                 <ul class="list-unstyled result-bucket" id="match">
                   <li class="result-entry"  v-for="item in this.data">
                     <a v-on:click="insertInsideInput(item)">
@@ -159,7 +159,15 @@
       }
     },
     mounted() {
-      // HANDLE BURGER MENU
+      // hide the search bar
+      document.body.addEventListener('click', (event) => {
+        if (event.target.matches('.search') || event.target.matches('.custom')) {
+          document.getElementById('result-list').hidden = false;
+        } else {
+          document.getElementById('result-list').hidden = true;
+        }
+      }
+      );
       const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
       if ($navbarBurgers.length > 0) {
         $navbarBurgers.forEach((el) => {
@@ -237,9 +245,9 @@
 
   select.classic {
     background-image:
-      linear-gradient(45deg, transparent 50%, #000000 50%),
-      linear-gradient(135deg, #000000 50%, transparent 50%),
-      linear-gradient(to right, #cecece, #cecece);
+            linear-gradient(45deg, transparent 50%, #000000 50%),
+            linear-gradient(135deg, #000000 50%, transparent 50%),
+            linear-gradient(to right, #cecece, #cecece);
     background-position: calc(100% - 15px) calc(1em + -1px), calc(100% - 10px) calc(1em + -1px), 100% 0;
     background-size: 5px 5px, 5px 5px, 1.9em 2.5em;
     background-repeat: no-repeat;

@@ -10,10 +10,12 @@
   import router from '@/router';
   import * as api from '@/api';
   import * as cookie from '@/cookie';
+  import * as player from '@/player';
   import Navigation from '@/components/Navigation';
   import Home from '@/components/Home';
   import Footer from '@/components/Footer';
   import Login from './components/Login';
+
 
   export default {
     name: 'app',
@@ -26,6 +28,7 @@
     },
     methods: {
       logout() {
+        player.clear();
         this.user = null;
         cookie.deleteTokenCookie();
         this.$forceUpdate();
