@@ -42,7 +42,7 @@
             </tbody>
           </table>
           <a class="button" v-on:click="addAllSong = true">Add full album in playlist&nbsp;<i class="fas fa-plus"></i></a>
-          <newSongModal v-if="addAllSong" v-bind:track="tracks" v-model="addAllSong"></newSongModal>
+          <newSongModal v-if="addAllSong" v-bind:track="tracks" v-model="addAllSong" v-on:logOut="logout"></newSongModal>
         </div>
       </div>
     </div>
@@ -65,6 +65,9 @@
       newSongModal
     },
     methods: {
+      logout() {
+        this.$emit('logOut');
+      },
       msToTime(s) {
         const ms = s % 1000;
         let news = (s - ms) / 1000;
@@ -109,11 +112,19 @@
     },
     async created() {
       const tmpAlbum = await api.getAlbum(this.id);
-      this.album = tmpAlbum.results[0];
+      if (tmpAlbum === false) {
+        this.$emit('logOut');
+      } else {
+        this.album = tmpAlbum.results[0];
 
-      const tmpTracks = await api.getTracksFromAlbum(this.id);
-      this.tracks = tmpTracks.results;
-      this.loading = true;
+        const tmpTracks = await api.getTracksFromAlbum(this.id);
+        if (tmpTracks === false) {
+          this.$emit('false');
+        } else {
+          this.tracks = tmpTracks.results;
+          this.loading = true;
+        }
+      }
     },
   };
 </script>
@@ -133,7 +144,7 @@
   .headline .title.is-1 {
     margin-bottom: 0;
   }
-  
+
   .spinner {
     margin: 100px auto 0;
     width: 70px;

@@ -17,7 +17,7 @@
       </div>
       <div class="container-list">
         <div class="box-album" v-for="item in search"  v-if="item.wrapperType === 'collection' ">
-          <router-link v-bind:to="{ name: 'Album', params: { id: item.collectionId }}" >
+          <router-link v-bind:to="{ name: 'Album', params: { id: item.collectionId }}" v-on:logOut="logout">
             <div class="box has-text-centered">
               <img v-bind:src="item.artworkUrl100.replace('100x100bb', '300x0w')" alt="Jaquette d'album">
               <p>{{ item.collectionName }}</p>
@@ -36,7 +36,7 @@
       <div class="container-list">
         <div class="container-list">
           <div class="box-artist" v-for="item in search"  v-if="item.wrapperType === 'artist' ">
-            <router-link v-bind:to="{ name: 'Artist', params: { id: item.artistId }}" >
+            <router-link v-bind:to="{ name: 'Artist', params: { id: item.artistId }}" v-on:logOut="logout" >
               <div class="box has-text-centered">
                 <img v-bind:src="item.artworkArtistUrl300" alt="Photo de l'artiste">
                 <p>{{ item.artistName }}</p>
@@ -57,7 +57,7 @@
           <div class="container-list">
             <div class="box-artist" v-for="item in search">
                 <div class="box">
-                  <router-link v-bind:to="{ name: 'User', params: { id: item.id }}" >
+                  <router-link v-bind:to="{ name: 'User', params: { id: item.id }}" v-on:logOut="logout" >
                     {{ item.name }}
                   </router-link>
                 </div>
@@ -113,9 +113,15 @@
       };
     },
     methods: {
+      logout() {
+        this.$emit('logOut');
+      },
       async addArtistPicture(artist) {
         const myartist = JSON.parse(JSON.stringify(artist));
         myartist.artworkArtistUrl300 = await api.scrapArtistPicture(myartist.artistLinkUrl, '300x0w');
+        if (myartist.artworkArtistUrl300 === false) {
+          this.$emit('logOut');
+        }
         return myartist;
       },
       async addArtistPictures(results) {

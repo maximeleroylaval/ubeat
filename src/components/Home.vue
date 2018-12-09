@@ -22,7 +22,7 @@
     <div v-if="loading_artist">
       <div class="container-list">
         <div class="box-artist" v-if="artists" v-for="item in artists">
-          <router-link v-bind:to="{ name: 'Artist', params: { id: item.artistId }}" >
+          <router-link v-bind:to="{ name: 'Artist', params: { id: item.artistId }}" v-on:logOut="logout">
             <div class="box has-text-centered">
               <img v-bind:src="item.artworkArtistUrl300" alt="Photo de l'artiste">
               <p>{{ item.artistName }}</p>
@@ -47,7 +47,7 @@
     <div v-if="loading_album">
       <div class="container-list">
         <div class="box-album" v-if="albums" v-for="item in albums">
-          <router-link v-bind:to="{ name: 'Album', params: { id: item[0].collectionId }}" >
+          <router-link v-bind:to="{ name: 'Album', params: { id: item[0].collectionId }}" v-on:logOut="logout">
             <div class="box has-text-centered">
               <img v-bind:src="item[0].artworkUrl100.replace('100x100bb', '300x0w')" alt="Jaquette d'album">
               <p>{{ item[0].collectionName }}</p>
@@ -70,9 +70,15 @@
       access_token: String,
     },
     methods: {
+      logout() {
+        this.$emit('logOut');
+      },
       async addArtistPicture(artist) {
         const myartist = JSON.parse(JSON.stringify(artist));
         myartist.artworkArtistUrl300 = await api.scrapArtistPicture(myartist.artistLinkUrl, '300x0w');
+        if (myartist.artworkArtistUrl300 === false) {
+          this.$emit('logOut');
+        }
         return myartist;
       },
       async addArtistPictures(results) {
@@ -134,7 +140,12 @@
       if (api.user.email !== null && api.user.email !== undefined) {
         const tmpArtist = [];
         for (let i = 0; i < this.artist_ids.length; i += 1) {
-          tmpArtist.push(api.getArtist(this.artist_ids[i]));
+          const tmp = api.getArtist(this.artist_ids[i]);
+          if (tmp === false) {
+            this.$emit('logOut');
+          } else {
+            tmpArtist.push(tmp);
+          }
         }
         const final = await Promise.all(tmpArtist);
         const endFinal = await this.addArtistPictures(final);
@@ -145,7 +156,12 @@
         this.loading_artist = true;
         const tmpAlbum = [];
         for (let i = 0; i < this.album_ids.length; i += 1) {
-          tmpAlbum.push(api.getAlbum(this.album_ids[i]));
+          const alb = api.getAlbum(this.album_ids[i]);
+          if (alb === false) {
+            this.$emit('logOut');
+          } else {
+            tmpAlbum.push(alb);
+          }
         }
         const finalAlbum = await Promise.all(tmpAlbum);
         this.albums = [];

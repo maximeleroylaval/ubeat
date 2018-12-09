@@ -18,7 +18,7 @@
         </thead>
         <tbody>
         <tr v-for="item in list">
-          <router-link v-bind:to="{ name: 'Playlist', params: { id: item.id }}"  >
+          <router-link v-bind:to="{ name: 'Playlist', params: { id: item.id }}"  v-on:logOut="logout" >
             <td>{{ item.name }}</td>
           </router-link>
           <td>{{ item.tracks.length }}</td>
@@ -65,11 +65,18 @@
     props: {
     },
     methods: {
+      logout() {
+        this.$emit('logOut');
+      },
       deletePlaylist(id) {
-        api.deletePlaylist(id);
-        for (let i = 0; i < this.list.length; i += 1) {
-          if (id === this.list[i].id) {
-            this.list.splice(i, 1);
+        const ret = api.deletePlaylist(id);
+        if (ret === false) {
+          this.$emit('logOut');
+        } else {
+          for (let i = 0; i < this.list.length; i += 1) {
+            if (id === this.list[i].id) {
+              this.list.splice(i, 1);
+            }
           }
         }
       },
@@ -87,7 +94,7 @@
         if (newPlaylist) {
           this.list.push(newPlaylist);
         } else {
-          alert('An error occured');
+          this.$emit('logOut');
         }
         this.closeModal();
       },
@@ -110,9 +117,18 @@
     },
     async created() {
       this.user = await api.getTokenInfo();
-      this.list = await api.getAllPlaylist();
-      this.list = this.filteredPlaylistsOwner();
-      this.list = this.filteredPlaylistsId();
+      if (this.user === false) {
+        this.user = null;
+        this.$emit('logOut');
+      } else {
+        this.list = await api.getAllPlaylist();
+        if (this.list === false) {
+          this.$emit('logOut');
+        } else {
+          this.list = this.filteredPlaylistsOwner();
+          this.list = this.filteredPlaylistsId();
+        }
+      }
     }
   };
 </script>,

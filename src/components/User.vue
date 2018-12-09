@@ -39,7 +39,7 @@
       </thead>
       <tbody>
       <tr v-for="item in list" :key="item.id">
-        <router-link v-bind:to="{ name: 'Playlist', params: { id: item.id }}" :key="item.id">
+        <router-link v-bind:to="{ name: 'Playlist', params: { id: item.id }}" :key="item.id" v-on:logOut="logout">
           <td>{{ item.name }}</td>
         </router-link>
         <td>{{ item.tracks.length }}</td>
@@ -61,7 +61,7 @@
     </div>
     <ul v-else>
       <li v-for="item in friends">
-        <router-link v-bind:to="{ name: 'User', params: { id: item.id }}" >
+        <router-link v-bind:to="{ name: 'User', params: { id: item.id }}" v-on:logOut="logout">
           <span >{{ item.name }}</span>
         </router-link>
       </li>
@@ -97,19 +97,26 @@
       next();
     },
     methods: {
+      logout() {
+        this.$emit('logOut');
+      },
       followUser() {
         document.getElementById('btn-ami').classList.add('is-loading');
-        api.followUser(this.id, () => {
+        if (api.followUser(this.id, () => {
           document.getElementById('btn-ami').classList.remove('is-loading');
           this.isFriend = true;
-        });
+        }) === false) {
+          this.$emit('logOut');
+        }
       },
       unfollowUser(id) {
         document.getElementById('btn-ami').classList.add('is-loading');
-        api.unfollowUser(id, () => {
+        if (api.unfollowUser(id, () => {
           document.getElementById('btn-ami').classList.remove('is-loading');
           this.isFriend = false;
-        });
+        }) === false) {
+          this.$emit('logOut');
+        }
       },
       hasFriends() {
         let check = false;
@@ -140,17 +147,31 @@
         this.registeredUser = null;
 
         this.user = await api.getUser(this.id);
-        this.friends = this.user.following;
+        if (this.user === false) {
+          this.$emit('logOut');
+        } else {
+          this.friends = this.user.following;
 
-        this.list = await api.getAllPlaylist();
-        this.list = this.filteredPlaylistsOwner();
-        this.list = this.filteredPlaylistsId();
+          this.list = await api.getAllPlaylist();
+          if (this.list === false) {
+            this.$emit('logOut');
+          } else {
+            this.list = this.filteredPlaylistsOwner();
+            this.list = this.filteredPlaylistsId();
 
-        const tmpUser = await api.getTokenInfo();
-        this.registeredUser = await api.getUser(tmpUser.id);
-
-        if (this.registeredUser.id !== this.user.id) {
-          this.hasFriends();
+            const tmpUser = await api.getTokenInfo();
+            if (this.user === false) {
+              this.user = null;
+              this.$emit('logOut');
+            } else {
+              this.registeredUser = await api.getUser(tmpUser.id);
+              if (this.registeredUser === false) {
+                this.$emit('logOut');
+              } else if (this.registeredUser.id !== this.user.id) {
+                this.hasFriends();
+              }
+            }
+          }
         }
       }
     },

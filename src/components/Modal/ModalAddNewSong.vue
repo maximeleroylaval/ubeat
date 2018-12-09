@@ -42,8 +42,12 @@
         const timestamp = new Date().getUTCMilliseconds();
         this.track.trackId = timestamp;
 
-        await api.addSongToPlaylist(this.idPlaylist, JSON.stringify(this.track));
-        this.$emit('input', false);
+        const ret = await api.addSongToPlaylist(this.idPlaylist, JSON.stringify(this.track));
+        if (ret === false) {
+          this.$emit('logOut');
+        } else {
+          this.$emit('input', false);
+        }
       }
     },
     data() {

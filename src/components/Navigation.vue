@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
-      <router-link class="navbar-item" to="/">
+      <router-link class="navbar-item" to="/" v-on:logOut="logout">
         <img src="@/assets/img/LogoTextOnly.png" alt="UBeat app" height="128">
       </router-link>
       <div class="navbar-item right">
@@ -12,8 +12,8 @@
     </div>
     <div class="navbar-menu" id="navMenu">
       <div class="navbar-start">
-        <router-link class="navbar-item" to="/">Home</router-link>
-        <router-link class="navbar-item" to="/playlists" v-bind:user="user">Playlist</router-link>
+        <router-link class="navbar-item" to="/" v-on:logOut="logout">Home</router-link>
+        <router-link class="navbar-item" to="/playlists" v-bind:user="user" v-on:logOut="logout">Playlist</router-link>
       </div>
       <div class="navbar-end">
         <div class="navbar-item">
@@ -38,7 +38,7 @@
               <option value="users/">User</option>
             </select>
             <div class="control">
-              <router-link v-bind:to="{ name: 'Search', params: { type:selected }, query : {q:input}}">
+              <router-link v-bind:to="{ name: 'Search', params: { type:selected }, query : {q:input}}" v-on:logOut="logout">
                 <button ref="search" class="button custom"><i class="fas fa-search"></i></button>
               </router-link>
             </div>
@@ -56,10 +56,10 @@
                 {{ user.email }}
               </div>
               <hr class="dropdown-divider">
-              <router-link class="navbar-item" v-bind:to="{ name: 'User', params: { id: user.id }}" >
+              <router-link class="navbar-item" v-bind:to="{ name: 'User', params: { id: user.id }}" v-on:logOut="logout" >
                 Profil
               </router-link>
-              <a class="navbar-item" v-on:click="lougout">
+              <a class="navbar-item" v-on:click="logout">
                 Log out
               </a>
             </div>
@@ -92,7 +92,7 @@
       Login
     },
     methods: {
-      lougout() {
+      logout() {
         this.$emit('logOut');
       },
       handleBlur: function handleBlur() {
@@ -147,30 +147,33 @@
         }
         if (this.input.length > 2) {
           this.data = await api.searchGlobalLimit(this.type, this.input);
-          this.data = this.parseData();
-          this.data = [...(new Set(this.data))];
+          if (this.data === false) {
+            this.$emit('logOut');
+          } else {
+            this.data = this.parseData();
+            this.data = [...(new Set(this.data))];
+          }
         } else {
           this.data = '';
         }
       }
     },
-  };
+    mounted() {
+      // HANDLE BURGER MENU
+      const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+      if ($navbarBurgers.length > 0) {
+        $navbarBurgers.forEach((el) => {
+          el.addEventListener('click', () => {
+            const target = el.dataset.target;
+            const $target = document.getElementById(target);
 
-  document.addEventListener('DOMContentLoaded', () => {
-    const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
-
-    if ($navbarBurgers.length > 0) {
-      $navbarBurgers.forEach((el) => {
-        el.addEventListener('click', () => {
-          const target = el.dataset.target;
-          const $target = document.getElementById(target);
-
-          el.classList.toggle('is-active');
-          $target.classList.toggle('is-active');
+            el.classList.toggle('is-active');
+            $target.classList.toggle('is-active');
+          });
         });
-      });
+      }
     }
-  });
+  };
 </script>
 
 <style scoped>

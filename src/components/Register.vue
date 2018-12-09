@@ -1,23 +1,24 @@
 <template>
     <div class="container">
         <div class="notification is-success" hidden id="confirmationBox">
-            Compte créé, vous allez être redirigé vers la page d'acceuil dans {{ sec }} secondes ...
+            Account created, redirecting to sign in page in {{ sec }} seconds ...
         </div>
         <div class="notification is-danger" hidden id="errorBox">
         </div>
         <div class="box center-box">
             <img src="@/assets/img/LogoTextOnly.png" alt="UBeat app" height="128">
-            <h1 class="title form-label">Création de compte</h1>
-            <label class="label form-label">Nom</label>
-            <input type="text" placeholder="Nom" v-model="name" class="input form-input" id="nameInput" @keyup.enter="create"/>
+            <h1 class="title form-label">Create an account</h1>
+            <label class="label form-label">Name</label>
+            <input type="text" placeholder="Name" v-model="name" class="input form-input" id="nameInput" @keyup.enter="create"/>
             <label class="label form-label">Email</label>
             <input type="text" placeholder="Email" v-model="email" class="input form-input" id="emailInput" @keyup.enter="create"/>
-            <label class="label form-label">Mot de passe</label>
-            <input type="password" placeholder="Mot de passe" v-model="password" class="input form-input" id="passwordInput" @keyup.enter="create"/>
-            <label class="label form-label">Confirmation de mot de passe</label>
-            <input type="password" placeholder="Mot de passe" v-model="passwordConfirmation" class="input form-input" id="passwordInput2" @keyup.enter="create"/>
-            <button v-on:click="create" class="button form-button" @mouseover="mouseOver" id="submitButton" @mouseout="mouseOut" >Créer son compte !</button>
+            <label class="label form-label">Password</label>
+            <input type="password" placeholder="Password" v-model="password" class="input form-input" id="passwordInput" @keyup.enter="create"/>
+            <label class="label form-label">Password confirmation</label>
+            <input type="password" placeholder="Password confirmation" v-model="passwordConfirmation" class="input form-input" id="passwordInput2" @keyup.enter="create"/>
+            <button v-on:click="create" class="button form-button" @mouseover="mouseOver" id="submitButton" @mouseout="mouseOut" >Create</button>
         </div>
+        <router-link :to="'login'">Back to log in</router-link>
     </div>
 </template>
 
@@ -63,7 +64,7 @@
         if (complete) {
           if (!this.checkPasswordMatch()) {
             btn.classList.remove('is-loading');
-            this.setError('Le mots de passe ne sont pas identiques');
+            this.setError('Password aren\'t identical');
             document.getElementById('passwordInput')
               .classList
               .add('is-danger');
@@ -76,14 +77,14 @@
               setInterval(() => { this.sec -= 1; }, 1000);
               setTimeout(() => { router.push('/login'); }, 5000);
             }).catch(() => {
-              this.setError('Email déjà pris');
+              this.setError('Email already taken');
               const email = document.getElementById('emailInput');
               email.classList.add('is-danger');
               btn.classList.remove('is-loading');
             });
           }
         } else {
-          this.setError('Champs incomplets');
+          this.setError('Missing fields');
           btn.classList.remove('is-loading');
         }
       },

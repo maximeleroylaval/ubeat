@@ -2,23 +2,24 @@
     <div class="container">
         <div class="notification is-danger" hidden id="errorBox">
             <button class="delete" v-on:click="hideError"></button>
-            Email/Mot de passe incorrects
+            Incorrect email/password combination
         </div>
         <div class="box center-box">
             <img src="@/assets/img/LogoTextOnly.png" alt="UBeat app" height="128">
             <label class="label form-label">Email</label>
             <input type="text" placeholder="Email" v-model="email" class="input form-input" id="emailInput" @keyup.enter="login"/>
-            <label class="label form-label">Mot de passe</label>
-            <input type="password" placeholder="Mot de passe" v-model="password" class="input form-input" id="passwordInput" @keyup.enter="login"/>
-            <button v-on:click="login" class="button form-button" @mouseover="mouseOver" id="submitButton" @mouseout="mouseOut" >Se connecter</button>
+            <label class="label form-label">Password</label>
+            <input type="password" placeholder="Password" v-model="password" class="input form-input" id="passwordInput" @keyup.enter="login"/>
+            <button v-on:click="login" class="button form-button" @mouseover="mouseOver" id="submitButton" @mouseout="mouseOut" >Log in</button>
         </div>
-        <router-link :to="'register'">Pas encore inscrit ? C'est par ici</router-link>
+        <router-link :to="'register'">Register here</router-link>
     </div>
 </template>
 
 <script>
   import router from '@/router';
   import * as api from '@/api';
+  import * as cookie from '@/cookie';
 
   export default {
     name: 'Login',
@@ -36,6 +37,7 @@
         api.user.password = this.password;
         api.login().then((r) => {
           api.user.accessToken = r.data.token;
+          cookie.setTokenCookie(r.data.token);
           this.$emit('logged');
           router.push({ path: '/' });
         }).catch(() => {

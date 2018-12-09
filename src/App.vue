@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <Navigation v-bind:user="user" v-on:logOut="logout" v-if="user"></Navigation>
-        <router-view v-bind:user="user" v-on:logged="setUser"></router-view>
+        <router-view v-bind:user="user" v-on:logged="setUser" v-on:logOut="logout"></router-view>
         <Footer v-if="user"></Footer>
     </div>
 </template>
@@ -9,6 +9,7 @@
 <script>
   import router from '@/router';
   import * as api from '@/api';
+  import * as cookie from '@/cookie';
   import Navigation from '@/components/Navigation';
   import Home from '@/components/Home';
   import Footer from '@/components/Footer';
@@ -26,18 +27,26 @@
     methods: {
       logout() {
         this.user = null;
-        api.user.email = null;
+        cookie.deleteTokenCookie();
         this.$forceUpdate();
         router.push({ path: '/login' });
       },
       async setUser() {
         this.user = await api.getTokenInfo();
-        this.$forceUpdate();
+        if (this.user === false) {
+          this.user = null;
+          this.$emit('logOut');
+        } else {
+          this.$forceUpdate();
+        }
       }
     },
     async mounted() {
-      if (this.user == null && api.user.email !== undefined) {
+      if (cookie.getToken() !== '') {
         this.user = await api.getTokenInfo();
+        if (this.user === false) {
+          this.logout();
+        }
       }
     },
     data() {
