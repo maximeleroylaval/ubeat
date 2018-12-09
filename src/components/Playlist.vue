@@ -68,6 +68,9 @@
     props: {
     },
     methods: {
+      logout() {
+        this.$emit('logout');
+      },
       updatePlaylist() {
         document.getElementById('btn-save').classList.add('is-loading');
         document.getElementById('btn-save').setAttribute('disabled', true);
