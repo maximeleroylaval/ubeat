@@ -73,6 +73,7 @@
 <script>
   import * as api from '@/api';
   import Login from '@/components/Login';
+  import { debounce } from 'lodash-es';
 
   export default {
     name: 'Navigation',
@@ -97,11 +98,11 @@
       handleBlur: function handleBlur() {
       },
       keymonitor: function key() {
-        clearTimeout(this.timer);
-        this.timer = setTimeout(
+        this.deb = debounce(
           () => {
             this.getData();
           }, 500);
+        this.deb();
       },
       insertInsideInput: function insertInsideInput(element) {
         this.input = element;
@@ -136,7 +137,7 @@
       },
       clear: function clear() {
         this.data = '';
-        this.getData();
+        this.input = '';
       },
       async getData() {
         if (this.selected === 'global') {
